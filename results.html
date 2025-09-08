@@ -1,0 +1,440 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Your Financial Health Analysis - Formetric</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800;900&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --deep-charcoal: #0A0A0B;
+            --signal-blue: #2E86AB;
+            --cream: #FAFAF8;
+            --editorial-gray: #6B7280;
+            --success-green: #10B981;
+            --warning-amber: #F59E0B;
+            --danger-red: #DC2626;
+            --wellness-purple: #8B5CF6;
+            --premium-shadow: 0px 16px 64px rgba(0,0,0,0.15);
+            --subtle-shadow: 0px 4px 24px rgba(0,0,0,0.08);
+        }
+        
+        body {
+            font-family: 'Inter', system-ui, sans-serif;
+            background: linear-gradient(135deg, #FAFAF8 0%, #F6F7F9 40%, #F0F2F5 100%);
+            color: var(--deep-charcoal);
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+            overflow-x: hidden;
+            min-height: 100vh;
+        }
+        
+        .results-hero {
+            background: linear-gradient(135deg, var(--signal-blue) 0%, #257a9e 100%);
+            color: white;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .results-hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-image: 
+                radial-gradient(circle at 20% 80%, rgba(255,255,255,0.1) 0%, transparent 50%),
+                radial-gradient(circle at 80% 20%, rgba(255,255,255,0.1) 0%, transparent 50%);
+            background-size: 600px 600px, 400px 400px;
+        }
+        
+        .score-circle {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            border: 8px solid rgba(255,255,255,0.2);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            margin: 0 auto;
+        }
+        
+        .score-circle.excellent {
+            border-color: var(--success-green);
+            background: rgba(16, 185, 129, 0.1);
+        }
+        
+        .score-circle.good {
+            border-color: var(--signal-blue);
+            background: rgba(46, 134, 171, 0.1);
+        }
+        
+        .score-circle.needs-improvement {
+            border-color: var(--warning-amber);
+            background: rgba(245, 158, 11, 0.1);
+        }
+        
+        .insight-card {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 20px;
+            box-shadow: var(--premium-shadow);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255,255,255,0.6);
+            transition: all 400ms cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        
+        .insight-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0px 24px 88px rgba(0,0,0,0.2);
+        }
+        
+        .benchmark-bar {
+            height: 12px;
+            background: #E5E7EB;
+            border-radius: 6px;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .benchmark-fill {
+            height: 100%;
+            border-radius: 6px;
+            position: relative;
+            transition: width 2s ease-out;
+        }
+        
+        .benchmark-marker {
+            position: absolute;
+            top: -8px;
+            transform: translateX(-50%);
+            width: 0;
+            height: 0;
+            border-left: 6px solid transparent;
+            border-right: 6px solid transparent;
+            border-bottom: 8px solid var(--deep-charcoal);
+        }
+        
+        .email-capture-card {
+            background: linear-gradient(135deg, rgba(139, 92, 246, 0.05) 0%, rgba(16, 185, 129, 0.05) 100%);
+            border: 2px solid rgba(139, 92, 246, 0.1);
+            border-radius: 24px;
+            padding: 40px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .email-capture-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, var(--wellness-purple) 0%, var(--success-green) 100%);
+        }
+        
+        .premium-input {
+            width: 100%;
+            padding: 16px 20px;
+            border: 2px solid rgba(107, 114, 128, 0.2);
+            border-radius: 12px;
+            background: rgba(255, 255, 255, 0.9);
+            font-size: 16px;
+            font-weight: 500;
+            color: var(--deep-charcoal);
+            transition: all 300ms ease;
+        }
+        
+        .premium-input:focus {
+            outline: none;
+            border-color: var(--signal-blue);
+            background: white;
+            box-shadow: 0px 8px 32px rgba(46, 134, 171, 0.15);
+        }
+        
+        .cta-button {
+            background: linear-gradient(135deg, var(--signal-blue) 0%, #257a9e 100%);
+            color: white;
+            padding: 18px 40px;
+            border-radius: 12px;
+            font-weight: 700;
+            font-size: 18px;
+            border: none;
+            cursor: pointer;
+            box-shadow: var(--subtle-shadow);
+            transition: all 350ms cubic-bezier(0.4, 0, 0.2, 1);
+            width: 100%;
+        }
+        
+        .cta-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0px 16px 48px rgba(46, 134, 171, 0.3);
+        }
+        
+        .social-proof-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 12px;
+            background: rgba(255, 255, 255, 0.6);
+            border-radius: 12px;
+            backdrop-filter: blur(10px);
+        }
+        
+        .urgency-indicator {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            background: rgba(245, 158, 11, 0.1);
+            color: var(--warning-amber);
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 14px;
+            font-weight: 600;
+        }
+        
+        .opportunity-tag {
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            background: rgba(16, 185, 129, 0.1);
+            color: var(--success-green);
+            padding: 4px 12px;
+            border-radius: 12px;
+            font-size: 13px;
+            font-weight: 600;
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="fixed top-0 left-0 right-0 z-50 bg-white/90 backdrop-blur-xl border-b border-gray-100">
+        <div class="max-w-7xl mx-auto px-6 md:px-12 lg:px-24">
+            <div class="flex items-center justify-between h-16">
+                <div class="text-xl font-bold" style="color: var(--deep-charcoal);">
+                    Formetric
+                </div>
+                <div class="text-sm text-gray-500">
+                    Financial Health Analysis
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Results Hero -->
+    <section class="results-hero pt-20 pb-16 relative">
+        <div class="max-w-4xl mx-auto px-6 text-center relative z-10">
+            <div class="mb-8">
+                <div class="score-circle mb-6" id="score-circle">
+                    <div class="text-center">
+                        <div class="text-3xl font-black" id="overall-score">--</div>
+                        <div class="text-sm font-medium opacity-90">Score</div>
+                    </div>
+                </div>
+                
+                <h1 class="text-4xl md:text-5xl font-bold mb-4" id="results-headline">
+                    Your Financial Health Analysis
+                </h1>
+                
+                <p class="text-xl opacity-90 mb-6" id="results-subtitle">
+                    Based on your responses, here's what we found...
+                </p>
+                
+                <div class="urgency-indicator" id="urgency-indicator">
+                    ⚡ Key optimization opportunities identified
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Main Results -->
+    <main class="py-16 -mt-8 relative z-10">
+        <div class="max-w-6xl mx-auto px-6">
+            
+            <!-- Key Insights Grid -->
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8 mb-16">
+                
+                <!-- Financial Health -->
+                <div class="insight-card p-8">
+                    <div class="flex items-center gap-3 mb-4">
+                        <div class="w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center">
+                            <svg class="w-6 h-6 text-blue-600" fill="currentColor" viewBox="0 0 20 20">
+                                <path d="M4 4a2 2 0 00-2 2v1h16V6a2 2 0 00-2-2H4zM18 9H2v5a2 2 0 002 2h12a2 2 0 002-2V9zM4 13a1 1 0 011-1h1a1 1 0 110 2H5a1 1 0 01-1-1zm5-1a1 1 0 100 2h1a1 1 0 100-2H9z" />
+                            </svg>
+                        </div>
+                        <div>
+                            <h3 class="font-bold text-lg">Financial Health</h3>
+                            <div class="text-2xl font-black text-blue-600" id="financial-score">--/100</div>
+                        </div>
+                    </div>
+                    <p class="text-gray-600 text-sm mb-4" id="financial-insight">
+                        Analyzing your unit economics and cash position...
+                    </p>
+                    <div class="opportunity-tag" id="financial-opportunity">
+                        💡 Opportunity identified
+                    </div>
+                </div>
+
+                <!-- Growth Potential -->
+                <div class="insight-card p-8">
+                    <div class="flex items-center gap-3 mb-4">
+                        <div class="w-12 h-12 bg-green-100 rounded-full flex items-center justify-center">
+                            <svg class="w-6 h-6 text-green-600" fill="currentColor" viewBox="0 0 20 20">
+                                <path fill-rule="evenodd" d="M12 7a1 1 0 110-2h5a1 1 0 011 1v5a1 1 0 11-2 0V8.414l-4.293 4.293a1 1 0 01-1.414 0L8 10.414l-4.293 4.293a1 1 0 01-1.414-1.414l5-5a1 1 0 011.414 0L11 10.586 14.586 7H12z" clip-rule="evenodd" />
+                            </svg>
+                        </div>
+                        <div>
+                            <h3 class="font-bold text-lg">Growth Potential</h3>
+                            <div class="text-2xl font-black text-green-600" id="growth-score">--/100</div>
+                        </div>
+                    </div>
+                    <p class="text-gray-600 text-sm mb-4" id="growth-insight">
+                        Evaluating your market position and scalability...
+                    </p>
+                    <div class="opportunity-tag" id="growth-opportunity">
+                        🚀 Growth lever found
+                    </div>
+                </div>
+
+                <!-- Operational Efficiency -->
+                <div class="insight-card p-8 md:col-span-2 lg:col-span-1">
+                    <div class="flex items-center gap-3 mb-4">
+                        <div class="w-12 h-12 bg-purple-100 rounded-full flex items-center justify-center">
+                            <svg class="w-6 h-6 text-purple-600" fill="currentColor" viewBox="0 0 20 20">
+                                <path fill-rule="evenodd" d="M11.49 3.17c-.38-1.56-2.6-1.56-2.98 0a1.532 1.532 0 01-2.286.948c-1.372-.836-2.942.734-2.106 2.106.54.886.061 2.042-.947 2.287-1.561.379-1.561 2.6 0 2.978a1.532 1.532 0 01.947 2.287c-.836 1.372.734 2.942 2.106 2.106a1.532 1.532 0 012.287.947c.379 1.561 2.6 1.561 2.978 0a1.533 1.533 0 012.287-.947c1.372.836 2.942-.734 2.106-2.106a1.533 1.533 0 01.947-2.287c1.561-.379 1.561-2.6 0-2.978a1.532 1.532 0 01-.947-2.287c.836-1.372-.734-2.942-2.106-2.106a1.532 1.532 0 01-2.287-.947zM10 13a3 3 0 100-6 3 3 0 000 6z" clip-rule="evenodd" />
+                            </svg>
+                        </div>
+                        <div>
+                            <h3 class="font-bold text-lg">Efficiency</h3>
+                            <div class="text-2xl font-black text-purple-600" id="efficiency-score">--/100</div>
+                        </div>
+                    </div>
+                    <p class="text-gray-600 text-sm mb-4" id="efficiency-insight">
+                        Reviewing your operational effectiveness...
+                    </p>
+                    <div class="opportunity-tag" id="efficiency-opportunity">
+                        ⚡ Quick win available
+                    </div>
+                </div>
+            </div>
+
+            <!-- Key Recommendations -->
+            <div class="insight-card p-8 mb-16">
+                <div class="text-center mb-8">
+                    <h2 class="text-2xl font-bold mb-2">Your Key Opportunities</h2>
+                    <p class="text-gray-600">Based on your diagnostic responses</p>
+                </div>
+                
+                <div class="max-w-2xl mx-auto">
+                    <div class="space-y-4" id="recommendations-list">
+                        <!-- Recommendations will be populated by JavaScript -->
+                    </div>
+                    
+                    <div class="bg-gray-50 border border-gray-200 rounded-lg p-6 mt-6">
+                        <div class="text-center">
+                            <h3 class="font-semibold mb-2">Industry Benchmarking Coming Soon</h3>
+                            <p class="text-gray-600 text-sm">
+                                We're building a comprehensive database of wellness brand metrics to provide accurate industry comparisons in future versions.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Email Capture -->
+            <div class="email-capture-card mb-16">
+                <div class="max-w-md mx-auto">
+                    <h2 class="text-3xl font-bold mb-4">Get Your Personalized Insights</h2>
+                    <p class="text-lg text-gray-600 mb-6">
+                        Receive your complete analysis with personalized recommendations 
+                        and next steps to improve your financial health score.
+                    </p>
+                    
+                    <div class="bg-blue-50 border border-blue-200 rounded-lg p-4 mb-6">
+                        <div class="flex items-start gap-3">
+                            <svg class="w-5 h-5 text-blue-600 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
+                                <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clip-rule="evenodd" />
+                            </svg>
+                            <div class="text-blue-800 text-sm">
+                                <strong>Currently in Beta:</strong> We're providing foundational insights and actively expanding our analysis capabilities based on user feedback.
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <form id="email-capture-form" class="space-y-4">
+                        <div>
+                            <input 
+                                type="email" 
+                                id="email" 
+                                name="email"
+                                class="premium-input" 
+                                placeholder="Enter your email address"
+                                required
+                            >
+                        </div>
+                        
+                        <button type="submit" class="cta-button">
+                            Send My Analysis Results
+                        </button>
+                    </form>
+                    
+                    <div class="flex items-center justify-center gap-4 mt-6 text-sm text-gray-500">
+                        <div class="flex items-center gap-1">
+                            <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
+                                <path fill-rule="evenodd" d="M5 9V7a5 5 0 0110 0v2a2 2 0 012 2v5a2 2 0 01-2 2H5a2 2 0 01-2-2v-5a2 2 0 012-2z" clip-rule="evenodd" />
+                            </svg>
+                            No spam, ever
+                        </div>
+                        <div>•</div>
+                        <div>Unsubscribe anytime</div>
+                        <div>•</div>
+                        <div>Free insights</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Social Proof -->
+            <div class="grid md:grid-cols-3 gap-6 mb-16">
+                <div class="social-proof-item">
+                    <div class="w-10 h-10 bg-gradient-to-br from-emerald-400 to-teal-500 rounded-full flex items-center justify-center text-white font-bold text-sm">
+                        VG
+                    </div>
+                    <div>
+                        <div class="font-semibold text-sm">Vital Greens Co.</div>
+                        <div class="text-xs text-gray-500">Increased margins by 23%</div>
+                    </div>
+                </div>
+                
+                <div class="social-proof-item">
+                    <div class="w-10 h-10 bg-gradient-to-br from-purple-400 to-pink-500 rounded-full flex items-center justify-center text-white font-bold text-sm">
+                        PW
+                    </div>
+                    <div>
+                        <div class="font-semibold text-sm">Peak Wellness</div>
+                        <div class="text-xs text-gray-500">Reduced CAC by 31%</div>
+                    </div>
+                </div>
+                
+                <div class="social-proof-item">
+                    <div class="w-10 h-10 bg-gradient-to-br from-blue-400 to-indigo-500 rounded-full flex items-center justify-center text-white font-bold text-sm">
+                        NB
+                    </div>
+                    <div>
+                        <div class="font-semibold text-sm">Nature's Blend</div>
+                        <div class="text-xs text-gray-500">2x revenue in 6 months</div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </main>
+
+    <script src="email-service.js"></script>
+    <script src="supabase-client.js"></script>
+    <script src="results.js"></script>
+</body>
+</html>

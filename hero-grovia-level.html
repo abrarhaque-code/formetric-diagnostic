@@ -1,0 +1,390 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Formetric - Grovia-Level Hero</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --deep-charcoal: #0A0A0B;
+            --signal-blue: #2E86AB;
+            --cream: #FAFAF8;
+            --editorial-gray: #6B7280;
+            --success-green: #10B981;
+            --card-shadow: 0px 20px 80px rgba(0,0,0,0.15);
+            --subtle-shadow: 0px 8px 32px rgba(0,0,0,0.08);
+        }
+        
+        body {
+            font-family: 'Inter', system-ui, sans-serif;
+            background: linear-gradient(135deg, #FAFAF8 0%, #F8F9FA 40%, #F1F3F4 80%, #EBEDF0 100%);
+            color: #0A0A0B;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+            overflow-x: hidden;
+        }
+        
+        .hero-headline {
+            font-size: 96px;
+            line-height: 0.88;
+            letter-spacing: -0.04em;
+            font-weight: 900;
+            text-rendering: optimizeLegibility;
+        }
+        
+        @media (max-width: 1024px) {
+            .hero-headline {
+                font-size: 72px;
+                line-height: 0.9;
+                letter-spacing: -0.035em;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .hero-headline {
+                font-size: 52px;
+                letter-spacing: -0.03em;
+                line-height: 0.92;
+            }
+        }
+        
+        .supporting-text {
+            font-size: 22px;
+            line-height: 1.6;
+            font-weight: 400;
+            color: #4B5563;
+            max-width: 520px;
+        }
+        
+        .premium-card {
+            background: linear-gradient(145deg, rgba(255,255,255,0.98) 0%, rgba(255,255,255,0.95) 100%);
+            border-radius: 28px;
+            box-shadow: 
+                0px 24px 88px rgba(0,0,0,0.12),
+                0px 8px 32px rgba(0,0,0,0.06),
+                inset 0px 1px 0px rgba(255,255,255,0.8);
+            backdrop-filter: blur(24px);
+            border: 1px solid rgba(255,255,255,0.4);
+            transition: all 500ms cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        
+        .premium-card:hover {
+            transform: translateY(-12px) scale(1.02);
+            box-shadow: 
+                0px 40px 140px rgba(0,0,0,0.18),
+                0px 16px 48px rgba(0,0,0,0.1),
+                inset 0px 1px 0px rgba(255,255,255,0.9);
+        }
+        
+        .magnetic-button {
+            background: linear-gradient(145deg, #2E86AB 0%, #257a9e 100%);
+            border-radius: 18px;
+            padding: 22px 44px;
+            font-size: 19px;
+            font-weight: 700;
+            color: white;
+            box-shadow: 
+                0px 12px 40px rgba(46, 134, 171, 0.24),
+                0px 4px 16px rgba(46, 134, 171, 0.12),
+                inset 0px 1px 0px rgba(255,255,255,0.2);
+            transition: all 350ms cubic-bezier(0.4, 0, 0.2, 1);
+            border: none;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .magnetic-button:hover {
+            transform: translateY(-4px) scale(1.02);
+            box-shadow: 
+                0px 20px 60px rgba(46, 134, 171, 0.35),
+                0px 8px 24px rgba(46, 134, 171, 0.2),
+                inset 0px 1px 0px rgba(255,255,255,0.3);
+        }
+        
+        .magnetic-button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+            transition: left 500ms;
+        }
+        
+        .magnetic-button:hover::before {
+            left: 100%;
+        }
+        
+        .floating-element {
+            position: absolute;
+            animation: float 6s ease-in-out infinite;
+        }
+        
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-20px); }
+        }
+        
+        .data-viz-card {
+            background: white;
+            border-radius: 20px;
+            padding: 24px;
+            box-shadow: 0px 8px 32px rgba(0,0,0,0.08);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255,255,255,0.3);
+        }
+        
+        .metric-bar {
+            height: 8px;
+            border-radius: 4px;
+            background: linear-gradient(90deg, #10B981 0%, #2E86AB 100%);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .metric-bar::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.5), transparent);
+            animation: shimmer 2s infinite;
+        }
+        
+        @keyframes shimmer {
+            100% { left: 100%; }
+        }
+        
+        .texture-overlay {
+            background-image: 
+                radial-gradient(circle at 25% 25%, rgba(255,255,255,0.15) 0%, transparent 50%),
+                radial-gradient(circle at 75% 75%, rgba(10,10,11,0.05) 0%, transparent 50%),
+                radial-gradient(circle at 50% 100%, rgba(46, 134, 171, 0.03) 0%, transparent 70%);
+            background-size: 600px 600px, 400px 400px, 800px 800px;
+            background-position: 0 0, 200px 200px, center bottom;
+        }
+        
+        .editorial-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: rgba(16, 185, 129, 0.1);
+            color: #059669;
+            padding: 8px 16px;
+            border-radius: 12px;
+            font-size: 14px;
+            font-weight: 500;
+            border: 1px solid rgba(16, 185, 129, 0.2);
+        }
+    </style>
+</head>
+<body>
+    <!-- Header - Ultra Minimal -->
+    <header class="fixed top-0 left-0 right-0 z-50 bg-white/90 backdrop-blur-xl border-b border-gray-100">
+        <div class="max-w-7xl mx-auto px-6 md:px-12 lg:px-24">
+            <div class="flex items-center justify-between h-20">
+                <div class="text-2xl font-bold" style="color: #0A0A0B;">
+                    Formetric
+                </div>
+                
+                <nav class="hidden md:flex items-center space-x-12">
+                    <a href="#features" class="text-gray-600 hover:text-gray-900 transition-colors font-medium">Features</a>
+                    <a href="#pricing" class="text-gray-600 hover:text-gray-900 transition-colors font-medium">Pricing</a>
+                </nav>
+                
+                <button class="hidden md:block text-white px-6 py-3 rounded-full hover:bg-opacity-90 transition-all font-medium" style="background: #0A0A0B;">
+                    Contact us →
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section - Asymmetrical Layout -->
+    <section class="relative h-screen pt-20 flex items-center texture-overlay">
+        <!-- Floating Background Elements -->
+        <div class="floating-element top-24 right-20 opacity-20">
+            <div class="w-24 h-24 rounded-full blur-3xl" style="background: #2E86AB;"></div>
+        </div>
+        <div class="floating-element top-48 left-20 opacity-10" style="animation-delay: -2s;">
+            <div class="w-20 h-20 rounded-full blur-2xl" style="background: #10B981;"></div>
+        </div>
+        
+        <div class="max-w-7xl mx-auto px-6 md:px-12 lg:px-24 py-4">
+            <div class="grid lg:grid-cols-[68%_32%] gap-16 items-center">
+                <!-- Left Content - Editorial Layout -->
+                <div class="order-2 lg:order-1">
+                    <!-- Editorial Badge -->
+                    <div class="editorial-badge mb-4">
+                        <svg width="16" height="16" fill="currentColor" viewBox="0 0 20 20">
+                            <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" />
+                        </svg>
+                        Trusted by 50+ CPG brands
+                    </div>
+                    
+                    <!-- Hero Headline - Editorial Weight -->
+                    <h1 class="hero-headline mb-4" style="color: #0A0A0B;">
+                        Where numbers meet 
+                        <span style="color: #2E86AB; display: block;">narrative</span>
+                        for modern
+                        <span style="font-weight: 300; display: block;">CPG brands</span>
+                    </h1>
+                    
+                    <!-- Supporting Text -->
+                    <p class="supporting-text mb-8">
+                        Transform raw financial data into strategic advantage. Our proprietary diagnostic 
+                        reveals the growth patterns and optimization opportunities that traditional 
+                        accounting misses — delivering CFO-grade insights at startup speed.
+                    </p>
+                    
+                    <!-- CTAs -->
+                    <div class="flex flex-col sm:flex-row gap-3 mb-6">
+                        <button class="magnetic-button">
+                            Start Your Analysis →
+                        </button>
+                        <button class="bg-transparent border-2 border-gray-300 px-8 py-4 rounded-full hover:border-blue-500 hover:text-blue-500 transition-all font-medium" style="color: #0A0A0B;">
+                            See demo
+                        </button>
+                    </div>
+                    
+                    <!-- Trust Indicators -->
+                    <div class="flex items-center gap-8 text-sm" style="color: #6B7280;">
+                        <div class="flex items-center gap-2">
+                            <svg width="16" height="16" fill="currentColor" class="text-green-500" viewBox="0 0 20 20">
+                                <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" />
+                            </svg>
+                            No setup fees
+                        </div>
+                        <div class="flex items-center gap-2">
+                            <svg width="16" height="16" fill="currentColor" class="text-green-500" viewBox="0 0 20 20">
+                                <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" />
+                            </svg>
+                            10-minute onboarding
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Right Visual - Data Visualization Cards -->
+                <div class="order-1 lg:order-2 relative">
+                    <div class="relative max-w-md ml-auto">
+                        <!-- Main Dashboard Card -->
+                        <div class="premium-card p-6 mb-6">
+                            <div class="flex items-center justify-between mb-4">
+                                <h3 class="font-semibold" style="color: #0A0A0B;">Financial Health</h3>
+                                <div class="text-2xl font-bold" style="color: #2E86AB;">87/100</div>
+                            </div>
+                            <div class="space-y-4">
+                                <div>
+                                    <div class="flex justify-between text-sm mb-2">
+                                        <span style="color: #6B7280;">Unit Economics</span>
+                                        <span class="font-medium">+15.2%</span>
+                                    </div>
+                                    <div class="metric-bar" style="width: 85%;"></div>
+                                </div>
+                                <div>
+                                    <div class="flex justify-between text-sm mb-2">
+                                        <span style="color: #6B7280;">Cash Runway</span>
+                                        <span class="font-medium">18 months</span>
+                                    </div>
+                                    <div class="metric-bar" style="width: 70%;"></div>
+                                </div>
+                                <div>
+                                    <div class="flex justify-between text-sm mb-2">
+                                        <span style="color: #6B7280;">Growth Rate</span>
+                                        <span class="font-medium" style="color: #10B981;">+23.4%</span>
+                                    </div>
+                                    <div class="metric-bar" style="width: 92%;"></div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Customer Card - Floating -->
+                        <div class="premium-card p-4 absolute -left-8 top-28 z-10 floating-element" style="animation-delay: -1s;">
+                            <div class="flex items-center gap-3">
+                                <div class="w-10 h-10 bg-gradient-to-br from-emerald-400 to-teal-500 rounded-full flex items-center justify-center text-white font-bold text-sm">
+                                    VG
+                                </div>
+                                <div>
+                                    <div class="font-bold text-sm" style="color: #0A0A0B;">Vital Greens Co.</div>
+                                    <div class="text-xs" style="color: #6B7280;">Premium Wellness</div>
+                                </div>
+                            </div>
+                            <div class="mt-3 text-xs" style="color: #6B7280;">
+                                Monthly Revenue
+                            </div>
+                            <div class="text-lg font-bold" style="color: #0A0A0B;">
+                                $847K
+                                <span class="text-xs font-medium ml-2 px-2 py-1 rounded-full" style="background: rgba(16, 185, 129, 0.15); color: #10B981;">+24%</span>
+                            </div>
+                        </div>
+                        
+                        <!-- Metrics Card - Bottom Right -->
+                        <div class="premium-card absolute -right-4 bottom-8 floating-element p-5" style="animation-delay: -3s;">
+                            <div class="text-xs mb-2" style="color: #6B7280;">Market Position</div>
+                            <div class="flex items-center gap-3">
+                                <div class="text-xl font-bold" style="color: #0A0A0B;">Top 12%</div>
+                                <div class="text-xs font-semibold px-2 py-1 rounded-full" style="background: rgba(46, 134, 171, 0.15); color: #2E86AB;">Wellness</div>
+                            </div>
+                            <div class="flex gap-1.5 mt-3">
+                                <div class="w-2 h-5 bg-gray-200 rounded-full"></div>
+                                <div class="w-2 h-7 bg-gray-300 rounded-full"></div>
+                                <div class="w-2 h-4 bg-emerald-400 rounded-full"></div>
+                                <div class="w-2 h-9 bg-gradient-to-t from-teal-500 to-emerald-400 rounded-full"></div>
+                                <div class="w-2 h-6 bg-gray-200 rounded-full"></div>
+                                <div class="w-2 h-3 bg-gray-200 rounded-full"></div>
+                            </div>
+                            <div class="text-xs mt-2 font-medium" style="color: #10B981;">+18% vs category avg</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+
+    <script>
+        // Magnetic button effect
+        document.querySelectorAll('.magnetic-button').forEach(button => {
+            button.addEventListener('mousemove', (e) => {
+                const rect = button.getBoundingClientRect();
+                const x = e.clientX - rect.left - rect.width / 2;
+                const y = e.clientY - rect.top - rect.height / 2;
+                
+                button.style.transform = `translate(${x * 0.1}px, ${y * 0.1}px) translateY(-2px)`;
+            });
+            
+            button.addEventListener('mouseleave', () => {
+                button.style.transform = '';
+            });
+        });
+        
+        // Scroll animations
+        const observerOptions = {
+            threshold: 0.2,
+            rootMargin: '0px 0px -100px 0px'
+        };
+        
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
+        
+        // Observe elements for scroll animations
+        document.querySelectorAll('.premium-card').forEach(card => {
+            card.style.opacity = '0';
+            card.style.transform = 'translateY(20px)';
+            card.style.transition = 'all 600ms cubic-bezier(0.4, 0, 0.2, 1)';
+            observer.observe(card);
+        });
+    </script>
+</body>
+</html>

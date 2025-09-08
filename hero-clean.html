@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Formetric - Clean Hero</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', system-ui, sans-serif;
+            background: linear-gradient(135deg, #FAFAF8 0%, #F8F9FA 50%, #F1F3F4 100%);
+            color: #0A0A0B;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+            overflow-x: hidden;
+        }
+        
+        .hero-headline {
+            font-size: 72px;
+            line-height: 0.9;
+            letter-spacing: -0.03em;
+            font-weight: 800;
+            text-rendering: optimizeLegibility;
+        }
+        
+        @media (max-width: 1024px) {
+            .hero-headline {
+                font-size: 56px;
+                line-height: 0.95;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .hero-headline {
+                font-size: 42px;
+                letter-spacing: -0.02em;
+                line-height: 1.0;
+            }
+        }
+        
+        .supporting-text {
+            font-size: 20px;
+            line-height: 1.6;
+            font-weight: 400;
+            color: #4B5563;
+        }
+        
+        .premium-card {
+            background: white;
+            border-radius: 24px;
+            box-shadow: 0px 20px 80px rgba(0,0,0,0.12);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255,255,255,0.3);
+            transition: all 400ms cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        
+        .premium-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0px 32px 120px rgba(0,0,0,0.18);
+        }
+        
+        .magnetic-button {
+            background: #2E86AB;
+            border-radius: 16px;
+            padding: 18px 36px;
+            font-size: 18px;
+            font-weight: 600;
+            color: white;
+            box-shadow: 0px 8px 32px rgba(46, 134, 171, 0.25);
+            transition: all 300ms cubic-bezier(0.4, 0, 0.2, 1);
+            border: none;
+            cursor: pointer;
+        }
+        
+        .magnetic-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0px 16px 48px rgba(46, 134, 171, 0.35);
+        }
+        
+        .metric-bar {
+            height: 8px;
+            border-radius: 4px;
+            background: linear-gradient(90deg, #10B981 0%, #2E86AB 100%);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .floating-element {
+            position: absolute;
+            animation: float 6s ease-in-out infinite;
+        }
+        
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-20px); }
+        }
+        
+        .editorial-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: rgba(16, 185, 129, 0.1);
+            color: #059669;
+            padding: 8px 16px;
+            border-radius: 12px;
+            font-size: 14px;
+            font-weight: 500;
+            border: 1px solid rgba(16, 185, 129, 0.2);
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="fixed top-0 left-0 right-0 z-50 bg-white/90 backdrop-blur-xl border-b border-gray-100">
+        <div class="max-w-7xl mx-auto px-6 md:px-12 lg:px-24">
+            <div class="flex items-center justify-between h-20">
+                <div class="text-2xl font-bold text-gray-900">
+                    Formetric
+                </div>
+                
+                <nav class="hidden md:flex items-center space-x-12">
+                    <a href="#features" class="text-gray-600 hover:text-gray-900 transition-colors font-medium">Features</a>
+                    <a href="#pricing" class="text-gray-600 hover:text-gray-900 transition-colors font-medium">Pricing</a>
+                </nav>
+                
+                <button class="hidden md:block bg-gray-900 text-white px-6 py-3 rounded-full hover:bg-opacity-90 transition-all font-medium">
+                    Contact us →
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="relative min-h-screen pt-20 flex items-center">
+        <div class="max-w-7xl mx-auto px-6 md:px-12 lg:px-24 py-8">
+            <div class="grid lg:grid-cols-2 gap-16 items-center">
+                <!-- Left Content -->
+                <div>
+                    <!-- Editorial Badge -->
+                    <div class="editorial-badge mb-6">
+                        <svg width="16" height="16" fill="currentColor" viewBox="0 0 20 20">
+                            <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" />
+                        </svg>
+                        Trusted by 50+ CPG brands
+                    </div>
+                    
+                    <!-- Hero Headline -->
+                    <h1 class="hero-headline mb-6 text-gray-900">
+                        Where numbers meet 
+                        <span class="text-blue-600 block">narrative</span>
+                        for modern
+                        <span class="font-light block">CPG brands</span>
+                    </h1>
+                    
+                    <!-- Supporting Text -->
+                    <p class="supporting-text mb-8 max-w-lg">
+                        Get CFO-grade insights without the CFO price tag. Our 10-minute diagnostic 
+                        reveals hidden growth opportunities in your financial data.
+                    </p>
+                    
+                    <!-- CTAs -->
+                    <div class="flex flex-col sm:flex-row gap-4 mb-8">
+                        <button class="magnetic-button">
+                            Start Your Analysis →
+                        </button>
+                        <button class="bg-transparent border-2 border-gray-300 text-gray-900 px-8 py-4 rounded-full hover:border-blue-500 hover:text-blue-500 transition-all font-medium">
+                            See demo
+                        </button>
+                    </div>
+                    
+                    <!-- Trust Indicators -->
+                    <div class="flex items-center gap-8 text-sm text-gray-600">
+                        <div class="flex items-center gap-2">
+                            <svg width="16" height="16" fill="currentColor" class="text-green-500" viewBox="0 0 20 20">
+                                <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" />
+                            </svg>
+                            No setup fees
+                        </div>
+                        <div class="flex items-center gap-2">
+                            <svg width="16" height="16" fill="currentColor" class="text-green-500" viewBox="0 0 20 20">
+                                <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" />
+                            </svg>
+                            10-minute onboarding
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Right Visual -->
+                <div class="relative">
+                    <div class="relative max-w-md ml-auto">
+                        <!-- Main Dashboard Card -->
+                        <div class="premium-card p-6 mb-6">
+                            <div class="flex items-center justify-between mb-4">
+                                <h3 class="font-semibold text-gray-900">Financial Health</h3>
+                                <div class="text-2xl font-bold text-blue-600">87/100</div>
+                            </div>
+                            <div class="space-y-4">
+                                <div>
+                                    <div class="flex justify-between text-sm mb-2">
+                                        <span class="text-gray-600">Unit Economics</span>
+                                        <span class="font-medium">+15.2%</span>
+                                    </div>
+                                    <div class="metric-bar" style="width: 85%;"></div>
+                                </div>
+                                <div>
+                                    <div class="flex justify-between text-sm mb-2">
+                                        <span class="text-gray-600">Cash Runway</span>
+                                        <span class="font-medium">18 months</span>
+                                    </div>
+                                    <div class="metric-bar" style="width: 70%;"></div>
+                                </div>
+                                <div>
+                                    <div class="flex justify-between text-sm mb-2">
+                                        <span class="text-gray-600">Growth Rate</span>
+                                        <span class="font-medium text-green-600">+23.4%</span>
+                                    </div>
+                                    <div class="metric-bar" style="width: 92%;"></div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Customer Card - Floating -->
+                        <div class="premium-card p-4 absolute -left-6 top-32 z-10 floating-element" style="animation-delay: -1s;">
+                            <div class="flex items-center gap-3">
+                                <div class="w-10 h-10 bg-gradient-to-br from-emerald-400 to-teal-500 rounded-full flex items-center justify-center text-white font-bold text-sm">
+                                    VG
+                                </div>
+                                <div>
+                                    <div class="font-semibold text-sm">Vital Greens Co.</div>
+                                    <div class="text-xs text-gray-500">Premium Wellness</div>
+                                </div>
+                            </div>
+                            <div class="mt-3 text-xs text-gray-500">
+                                Monthly Revenue
+                            </div>
+                            <div class="text-lg font-bold text-gray-900">
+                                $847K
+                                <span class="text-xs font-medium text-green-600 ml-1">+24%</span>
+                            </div>
+                        </div>
+                        
+                        <!-- Metrics Card - Bottom Right -->
+                        <div class="premium-card p-4 absolute -right-4 bottom-8 floating-element" style="animation-delay: -3s;">
+                            <div class="text-xs text-gray-500 mb-2">Market Position</div>
+                            <div class="flex items-center gap-2">
+                                <div class="text-lg font-bold text-gray-900">Top 12%</div>
+                                <div class="text-xs bg-blue-100 text-blue-600 px-2 py-1 rounded-full">Wellness</div>
+                            </div>
+                            <div class="flex gap-1 mt-3">
+                                <div class="w-2 h-4 bg-gray-200 rounded-full"></div>
+                                <div class="w-2 h-6 bg-gray-300 rounded-full"></div>
+                                <div class="w-2 h-3 bg-emerald-400 rounded-full"></div>
+                                <div class="w-2 h-8 bg-teal-500 rounded-full"></div>
+                                <div class="w-2 h-5 bg-gray-200 rounded-full"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <script>
+        // Magnetic button effect
+        document.querySelectorAll('.magnetic-button').forEach(button => {
+            button.addEventListener('mousemove', (e) => {
+                const rect = button.getBoundingClientRect();
+                const x = e.clientX - rect.left - rect.width / 2;
+                const y = e.clientY - rect.top - rect.height / 2;
+                
+                button.style.transform = `translate(${x * 0.1}px, ${y * 0.1}px) translateY(-3px)`;
+            });
+            
+            button.addEventListener('mouseleave', () => {
+                button.style.transform = '';
+            });
+        });
+    </script>
+</body>
+</html>

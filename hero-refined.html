@@ -1,0 +1,427 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Formetric - Refined Hero</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --deep-charcoal: #0A0A0B;
+            --signal-blue: #2E86AB;
+            --cream: #FAFAF8;
+            --editorial-gray: #6B7280;
+            --success-green: #10B981;
+            --card-shadow: 0px 12px 48px rgba(0,0,0,0.12);
+            --subtle-shadow: 0px 4px 20px rgba(0,0,0,0.06);
+        }
+        
+        body {
+            font-family: 'Inter', system-ui, sans-serif;
+            background: linear-gradient(135deg, #FAFAF8 0%, #F8F9FA 30%, #F1F3F4 100%);
+            color: var(--deep-charcoal);
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+            overflow-x: hidden;
+            line-height: 1.6;
+        }
+        
+        .hero-headline {
+            font-size: 72px;
+            line-height: 0.95;
+            letter-spacing: -0.025em;
+            font-weight: 800;
+            text-rendering: optimizeLegibility;
+        }
+        
+        @media (max-width: 1024px) {
+            .hero-headline {
+                font-size: 56px;
+                line-height: 1.0;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .hero-headline {
+                font-size: 44px;
+                letter-spacing: -0.02em;
+                line-height: 1.05;
+            }
+        }
+        
+        .supporting-text {
+            font-size: 20px;
+            line-height: 1.6;
+            font-weight: 400;
+            color: var(--editorial-gray);
+            max-width: 480px;
+        }
+        
+        .premium-card {
+            background: white;
+            border-radius: 16px;
+            box-shadow: var(--card-shadow);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255,255,255,0.2);
+            transition: all 300ms cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        
+        .premium-card:hover {
+            transform: translateY(-4px) scale(1.005);
+            box-shadow: 0px 20px 64px rgba(0,0,0,0.15);
+        }
+        
+        .magnetic-button {
+            background: var(--signal-blue);
+            border-radius: 12px;
+            padding: 16px 32px;
+            font-size: 16px;
+            font-weight: 600;
+            color: white;
+            box-shadow: var(--subtle-shadow);
+            transition: all 250ms cubic-bezier(0.4, 0, 0.2, 1);
+            border: none;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .magnetic-button:hover {
+            transform: translateY(-1px);
+            box-shadow: 0px 8px 32px rgba(46, 134, 171, 0.3);
+        }
+        
+        .ghost-button {
+            background: transparent;
+            border: 2px solid rgba(107, 114, 128, 0.3);
+            color: var(--deep-charcoal);
+            padding: 14px 28px;
+            border-radius: 12px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 250ms cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        
+        .ghost-button:hover {
+            border-color: var(--signal-blue);
+            color: var(--signal-blue);
+        }
+        
+        .floating-element {
+            position: absolute;
+            animation: float 8s ease-in-out infinite;
+        }
+        
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-12px); }
+        }
+        
+        .data-viz-card {
+            background: white;
+            border-radius: 12px;
+            padding: 16px;
+            box-shadow: var(--subtle-shadow);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255,255,255,0.2);
+        }
+        
+        .metric-bar {
+            height: 6px;
+            border-radius: 3px;
+            background: linear-gradient(90deg, #10B981 0%, var(--signal-blue) 100%);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .metric-bar::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent);
+            animation: shimmer 3s infinite;
+        }
+        
+        @keyframes shimmer {
+            100% { left: 100%; }
+        }
+        
+        .editorial-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            background: rgba(16, 185, 129, 0.08);
+            color: #059669;
+            padding: 6px 12px;
+            border-radius: 8px;
+            font-size: 13px;
+            font-weight: 500;
+            border: 1px solid rgba(16, 185, 129, 0.15);
+        }
+        
+        .nav-link {
+            color: var(--editorial-gray);
+            font-weight: 500;
+            transition: color 200ms ease;
+        }
+        
+        .nav-link:hover {
+            color: var(--deep-charcoal);
+        }
+        
+        .header-cta {
+            background: var(--deep-charcoal);
+            color: white;
+            padding: 10px 20px;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: 600;
+            border: none;
+            cursor: pointer;
+            transition: all 200ms ease;
+        }
+        
+        .header-cta:hover {
+            background-color: rgba(10, 10, 11, 0.9);
+            transform: translateY(-1px);
+        }
+        
+        .trust-indicator {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 14px;
+            color: var(--editorial-gray);
+        }
+    </style>
+</head>
+<body>
+    <!-- Header Navigation -->
+    <header class="fixed top-0 left-0 right-0 z-50 bg-white/95 backdrop-blur-xl border-b border-gray-100">
+        <div class="max-w-7xl mx-auto px-6 lg:px-12">
+            <div class="flex items-center justify-between h-16">
+                <!-- Logo -->
+                <div class="text-xl font-bold" style="color: var(--deep-charcoal);">
+                    Formetric
+                </div>
+                
+                <!-- Navigation -->
+                <nav class="hidden md:flex items-center space-x-8">
+                    <a href="#features" class="nav-link">Features</a>
+                    <a href="#pricing" class="nav-link">Pricing</a>
+                </nav>
+                
+                <!-- Header CTA -->
+                <button class="header-cta">
+                    Get Started
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section - Compact & Refined -->
+    <section class="relative pt-16">
+        <!-- Subtle background elements -->
+        <div class="floating-element top-24 right-16 opacity-15">
+            <div class="w-20 h-20 bg-signal-blue rounded-full blur-2xl"></div>
+        </div>
+        
+        <div class="max-w-7xl mx-auto px-6 lg:px-12 py-12 lg:py-20">
+            <div class="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
+                <!-- Left Content - Tighter Layout -->
+                <div class="order-2 lg:order-1">
+                    <!-- Editorial Badge -->
+                    <div class="editorial-badge mb-6">
+                        <svg width="12" height="12" fill="currentColor" viewBox="0 0 20 20">
+                            <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" />
+                        </svg>
+                        Trusted by 50+ CPG brands
+                    </div>
+                    
+                    <!-- Hero Headline - Better Proportions -->
+                    <h1 class="hero-headline mb-6" style="color: var(--deep-charcoal);">
+                        Strategy and 
+                        <span style="color: var(--signal-blue); display: block;">growth</span>
+                        for modern
+                        <span style="font-weight: 400; display: block;">CPG brands</span>
+                    </h1>
+                    
+                    <!-- Supporting Text - Tighter -->
+                    <p class="supporting-text mb-8">
+                        Formetric partners with CPG brands to unlock precision analytics, 
+                        elevate financial performance, and build a foundation for scalable growth.
+                    </p>
+                    
+                    <!-- CTAs - Compact -->
+                    <div class="flex flex-col sm:flex-row gap-3 mb-10">
+                        <button class="magnetic-button">
+                            Get your analysis →
+                        </button>
+                        <button class="ghost-button">
+                            See demo
+                        </button>
+                    </div>
+                    
+                    <!-- Trust Indicators - Minimal -->
+                    <div class="flex items-center gap-6">
+                        <div class="trust-indicator">
+                            <svg width="14" height="14" fill="currentColor" class="text-success-green" viewBox="0 0 20 20">
+                                <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" />
+                            </svg>
+                            No setup fees
+                        </div>
+                        <div class="trust-indicator">
+                            <svg width="14" height="14" fill="currentColor" class="text-success-green" viewBox="0 0 20 20">
+                                <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" />
+                            </svg>
+                            10-minute onboarding
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Right Visual - Closer to Content -->
+                <div class="order-1 lg:order-2 relative">
+                    <div class="relative max-w-sm ml-auto lg:ml-8">
+                        <!-- Main Dashboard Card -->
+                        <div class="premium-card p-5">
+                            <div class="flex items-center justify-between mb-4">
+                                <h3 class="font-semibold text-deep-charcoal text-sm">Financial Health</h3>
+                                <div class="text-xl font-bold text-signal-blue">87/100</div>
+                            </div>
+                            <div class="space-y-3">
+                                <div>
+                                    <div class="flex justify-between text-xs mb-1">
+                                        <span class="text-editorial-gray">Unit Economics</span>
+                                        <span class="font-medium">+15.2%</span>
+                                    </div>
+                                    <div class="metric-bar" style="width: 85%;"></div>
+                                </div>
+                                <div>
+                                    <div class="flex justify-between text-xs mb-1">
+                                        <span class="text-editorial-gray">Cash Runway</span>
+                                        <span class="font-medium">18 months</span>
+                                    </div>
+                                    <div class="metric-bar" style="width: 70%;"></div>
+                                </div>
+                                <div>
+                                    <div class="flex justify-between text-xs mb-1">
+                                        <span class="text-editorial-gray">Growth Rate</span>
+                                        <span class="font-medium text-success-green">+23.4%</span>
+                                    </div>
+                                    <div class="metric-bar" style="width: 92%;"></div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Customer Card - Floating Left -->
+                        <div class="premium-card p-3 absolute -left-6 top-24 z-10 floating-element" style="animation-delay: -1s;">
+                            <div class="flex items-center gap-2">
+                                <div class="w-8 h-8 bg-gradient-to-br from-yellow-400 to-orange-500 rounded-full flex items-center justify-center text-white font-semibold text-xs">
+                                    MJ
+                                </div>
+                                <div>
+                                    <div class="font-semibold text-xs">Maggie Johnson</div>
+                                    <div class="text-xs text-editorial-gray">Oasis Organic</div>
+                                </div>
+                            </div>
+                            <div class="mt-2">
+                                <div class="text-xs text-editorial-gray">Daily Average</div>
+                                <div class="text-sm font-bold text-deep-charcoal">
+                                    2h 20m
+                                    <span class="text-xs font-normal text-success-green ml-1">+30m</span>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Revenue Card - Bottom Right -->
+                        <div class="data-viz-card absolute -right-3 bottom-6 floating-element" style="animation-delay: -2s;">
+                            <div class="text-xs text-editorial-gray mb-1">Revenue Growth</div>
+                            <div class="flex items-center gap-2">
+                                <div class="text-sm font-bold text-deep-charcoal">$2.4M</div>
+                                <div class="text-xs bg-success-green/20 text-success-green px-1 py-0.5 rounded">+15%</div>
+                            </div>
+                            <div class="flex gap-1 mt-2">
+                                <div class="w-1.5 h-4 bg-gray-200 rounded-full"></div>
+                                <div class="w-1.5 h-6 bg-gray-300 rounded-full"></div>
+                                <div class="w-1.5 h-3 bg-success-green rounded-full"></div>
+                                <div class="w-1.5 h-8 bg-signal-blue rounded-full"></div>
+                                <div class="w-1.5 h-5 bg-gray-200 rounded-full"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Diagnostic Section Preview - Compact -->
+    <section id="diagnostic" class="py-20 bg-white">
+        <div class="max-w-4xl mx-auto text-center px-6">
+            <h2 class="text-4xl font-bold mb-4" style="color: var(--deep-charcoal);">Ready to get started?</h2>
+            <p class="text-lg text-editorial-gray mb-8">Your 10-minute financial diagnostic awaits</p>
+            <button class="magnetic-button">
+                Start Your Analysis →
+            </button>
+        </div>
+    </section>
+
+    <script>
+        // Enhanced magnetic button effect
+        document.querySelectorAll('.magnetic-button').forEach(button => {
+            button.addEventListener('mousemove', (e) => {
+                const rect = button.getBoundingClientRect();
+                const x = e.clientX - rect.left - rect.width / 2;
+                const y = e.clientY - rect.top - rect.height / 2;
+                
+                button.style.transform = `translate(${x * 0.05}px, ${y * 0.05}px) translateY(-1px)`;
+            });
+            
+            button.addEventListener('mouseleave', () => {
+                button.style.transform = '';
+            });
+        });
+        
+        // Intersection observer for scroll animations
+        const observerOptions = {
+            threshold: 0.15,
+            rootMargin: '0px 0px -50px 0px'
+        };
+        
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
+        
+        // Initialize scroll animations
+        document.querySelectorAll('.premium-card').forEach(card => {
+            card.style.opacity = '0';
+            card.style.transform = 'translateY(15px)';
+            card.style.transition = 'all 400ms cubic-bezier(0.4, 0, 0.2, 1)';
+            observer.observe(card);
+        });
+        
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+    </script>
+</body>
+</html>
