@@ -1,0 +1,11 @@
+
+For production deployment, replace GA_MEASUREMENT_ID with your actual Google Analytics 4 measurement ID in these files:
+- index.html
+- diagnostic.html 
+- results.html
+- privacy-policy.html
+- terms.html
+- test-suite.html
+
+Example measurement ID format: G-XXXXXXXXXX
+
