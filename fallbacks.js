@@ -10,7 +10,6 @@ class DiagnosticFallbacks {
 
     init() {
         this.setupGlobalErrorHandling();
-        this.setupStorageFallbacks();
         this.setupNetworkFallbacks();
         this.setupProgressResumption();
     }

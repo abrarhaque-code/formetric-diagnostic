@@ -50,7 +50,7 @@ export default async function handler(req, res) {
             body: JSON.stringify({
                 from: 'Formetric <noreply@resend.dev>',
                 to: email,
-                subject: `Your Financial Health Analysis - ${diagnosticData.score.overall}/100`,
+                subject: `Your Financial Assessment Results - ${diagnosticData.category ? diagnosticData.category.label : 'Developing'} Category`,
                 html: emailContent.html,
                 text: emailContent.text
             })
@@ -78,24 +78,27 @@ export default async function handler(req, res) {
     }
 }
 
-// Generate email content - same logic as client-side
+// Generate email content - using categorical system
 function generateEmailContent(diagnosticData) {
-    const { company_name, founder_name, email, score } = diagnosticData;
-    const overallScore = score.overall;
+    const { company_name, founder_name, email, category, recommendations } = diagnosticData;
+    const categoryLabel = category ? category.label : 'Developing';
     
-    // Generate score interpretation
-    let scoreInterpretation = '';
+    // Generate category-based interpretation
+    let categoryInterpretation = '';
     let nextSteps = '';
     
-    if (overallScore >= 75) {
-        scoreInterpretation = `Excellent work! ${company_name} shows strong financial health with solid fundamentals in place.`;
-        nextSteps = `Focus on scaling operations and exploring premium pricing strategies to maximize your strong position.`;
-    } else if (overallScore >= 55) {
-        scoreInterpretation = `${company_name} has a solid foundation with clear opportunities for improvement.`;
-        nextSteps = `Consider optimizing your unit economics and customer acquisition costs to unlock the next level of growth.`;
+    if (category && category.class === 'strong') {
+        categoryInterpretation = `Excellent work! ${company_name} demonstrates strong financial practices and is well-positioned for continued growth.`;
+        nextSteps = recommendations ? recommendations.priorities.slice(0, 2).join(' \n\n') : 'Continue building on your strong foundation.';
+    } else if (category && category.class === 'developing') {
+        categoryInterpretation = `${company_name} has built a solid foundation with clear opportunities to optimize and accelerate growth.`;
+        nextSteps = recommendations ? recommendations.priorities.slice(0, 2).join(' \n\n') : 'Focus on optimizing your key financial metrics.';
+    } else if (category && category.class === 'growing') {
+        categoryInterpretation = `${company_name} shows promising momentum with several key areas ready for strategic development.`;
+        nextSteps = recommendations ? recommendations.priorities.slice(0, 2).join(' \n\n') : 'Build stronger financial tracking and systems.';
     } else {
-        scoreInterpretation = `${company_name} has significant potential for rapid improvement with the right strategic focus.`;
-        nextSteps = `Priority should be on strengthening cash flow and optimizing your core business metrics.`;
+        categoryInterpretation = `${company_name} is in an exciting early stage with tremendous potential for rapid progress through focused improvements.`;
+        nextSteps = recommendations ? recommendations.priorities.slice(0, 2).join(' \n\n') : 'Start with basic financial system setup and tracking.';
     }
 
     const html = `
@@ -108,8 +111,9 @@ function generateEmailContent(diagnosticData) {
         .container { max-width: 600px; margin: 0 auto; padding: 20px; }
         .header { background: linear-gradient(135deg, #2E86AB 0%, #257a9e 100%); color: white; padding: 30px; text-align: center; border-radius: 8px 8px 0 0; }
         .content { background: white; padding: 30px; border: 1px solid #e5e7eb; }
-        .score-box { background: #f8f9fa; border-left: 4px solid #2E86AB; padding: 20px; margin: 20px 0; }
-        .score { font-size: 36px; font-weight: bold; color: #2E86AB; margin: 0; }
+        .category-box { background: #f8f9fa; border-left: 4px solid #2E86AB; padding: 20px; margin: 20px 0; }
+        .category { font-size: 24px; font-weight: bold; color: #2E86AB; margin: 0; }
+        .disclaimer-box { background: #fef3c7; border: 1px solid #fbbf24; padding: 15px; border-radius: 6px; margin: 20px 0; }
         .cta-button { background: #2E86AB; color: white; padding: 12px 24px; text-decoration: none; border-radius: 6px; display: inline-block; margin: 20px 0; }
         .footer { background: #f8f9fa; padding: 20px; text-align: center; font-size: 12px; color: #666; border-radius: 0 0 8px 8px; }
     </style>
@@ -117,25 +121,30 @@ function generateEmailContent(diagnosticData) {
 <body>
     <div class="container">
         <div class="header">
-            <h1 style="margin: 0;">Your Financial Health Analysis</h1>
+            <h1 style="margin: 0;">Your Financial Assessment Results</h1>
             <p style="margin: 10px 0 0 0; opacity: 0.9;">Results for ${company_name}</p>
         </div>
         
         <div class="content">
             <p>Hi ${founder_name},</p>
             
-            <p>Thank you for completing our financial diagnostic. Based on your responses, here's your personalized analysis:</p>
+            <p>Thank you for completing our financial diagnostic. Based on your responses, here's your personalized assessment:</p>
             
-            <div class="score-box">
-                <h2 style="margin: 0 0 10px 0;">Overall Financial Health</h2>
-                <div class="score">${overallScore}/100</div>
+            <div class="category-box">
+                <h2 style="margin: 0 0 10px 0;">Financial Assessment Category</h2>
+                <div class="category">${categoryLabel}</div>
             </div>
             
-            <h3>Key Insight</h3>
-            <p>${scoreInterpretation}</p>
+            <h3>Assessment Insight</h3>
+            <p>${categoryInterpretation}</p>
             
-            <h3>Recommended Next Steps</h3>
-            <p>${nextSteps}</p>
+            <h3>Your Priority Next Steps</h3>
+            <p style="white-space: pre-line;">${nextSteps}</p>
+            
+            <div class="disclaimer-box">
+                <h4 style="margin: 0 0 10px 0; color: #92400e;">⚠️ Important Disclaimer</h4>
+                <p style="margin: 0; font-size: 12px; color: #92400e;">This assessment provides educational guidance based on general financial best practices, not industry benchmarking data. Results are for informational purposes only and do not constitute professional financial, investment, or business advice.</p>
+            </div>
             
             <div style="background: #f0f9ff; border: 1px solid #bae6fd; padding: 20px; border-radius: 6px; margin: 20px 0;">
                 <h4 style="margin: 0 0 10px 0; color: #0369a1;">Want to dive deeper?</h4>
@@ -147,7 +156,8 @@ function generateEmailContent(diagnosticData) {
         </div>
         
         <div class="footer">
-            <p>This analysis is for informational purposes only and should not be considered professional financial advice.</p>
+            <p><strong>This analysis is for educational purposes only and is not professional financial advice.</strong></p>
+            <p>Every business situation is unique. Consult with qualified professionals before making significant financial decisions.</p>
             <p>Questions? Reply to this email or contact us at hello@formetric.com</p>
             <p><a href="#" style="color: #666;">Unsubscribe</a> | <a href="#" style="color: #666;">Privacy Policy</a></p>
         </div>
@@ -156,19 +166,22 @@ function generateEmailContent(diagnosticData) {
 </html>`;
 
     const text = `
-Your Financial Health Analysis - ${company_name}
+Your Financial Assessment Results - ${company_name}
 
 Hi ${founder_name},
 
-Thank you for completing our financial diagnostic. Based on your responses, here's your personalized analysis:
+Thank you for completing our financial diagnostic. Based on your responses, here's your personalized assessment:
 
-OVERALL FINANCIAL HEALTH: ${overallScore}/100
+FINANCIAL ASSESSMENT CATEGORY: ${categoryLabel}
 
-Key Insight:
-${scoreInterpretation}
+Assessment Insight:
+${categoryInterpretation}
 
-Recommended Next Steps:
+Your Priority Next Steps:
 ${nextSteps}
+
+IMPORTANT DISCLAIMER:
+This assessment provides educational guidance based on general financial best practices, not industry benchmarking data. Results are for informational purposes only and do not constitute professional financial, investment, or business advice.
 
 WANT TO DIVE DEEPER?
 We're currently in beta and expanding our analysis capabilities. If you'd like to discuss your results and explore growth strategies, feel free to reach out.
@@ -177,7 +190,8 @@ Best regards,
 The Formetric Team
 
 ---
-This analysis is for informational purposes only and should not be considered professional financial advice.
+This analysis is for educational purposes only and is not professional financial advice.
+Every business situation is unique. Consult with qualified professionals before making significant financial decisions.
 Questions? Reply to this email or contact us at hello@formetric.com
 `;
 

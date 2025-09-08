@@ -3,9 +3,89 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Financial Diagnostic - Formetric</title>
-    <script src="https://cdn.tailwindcss.com"></script>
+    <title>Financial Health Diagnostic - Free Business Assessment | Formetric</title>
+    <meta name="description" content="Take our free 5-minute financial diagnostic to uncover hidden cash flow opportunities and get personalized recommendations for your health & wellness brand.">
+    <meta name="keywords" content="financial diagnostic, business assessment, cash flow analysis, health wellness brands, financial health check, free business audit">
+    <meta name="author" content="Formetric">
+    <link rel="canonical" href="https://formetric.com/diagnostic">
+    
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://formetric.com/diagnostic">
+    <meta property="og:title" content="Free Financial Health Diagnostic for Health & Wellness Brands">
+    <meta property="og:description" content="Discover your business's financial strengths and weaknesses with our AI-powered diagnostic tool. Get personalized recommendations in 5 minutes.">
+    <meta property="og:image" content="https://formetric.com/og-diagnostic.png">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta property="og:site_name" content="Formetric">
+    
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="https://formetric.com/diagnostic">
+    <meta property="twitter:title" content="Free Financial Health Diagnostic for Health & Wellness Brands">
+    <meta property="twitter:description" content="Discover your business's financial strengths and weaknesses with our AI-powered diagnostic tool. Get personalized recommendations in 5 minutes.">
+    <meta property="twitter:image" content="https://formetric.com/og-diagnostic.png">
+    
+    <!-- Schema.org structured data -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebApplication",
+      "name": "Formetric Financial Diagnostic",
+      "description": "Free financial health assessment tool for health and wellness brands",
+      "url": "https://formetric.com/diagnostic",
+      "applicationCategory": "BusinessApplication",
+      "operatingSystem": "Web",
+      "interactivityType": "active",
+      "isAccessibleForFree": true,
+      "provider": {
+        "@type": "Organization",
+        "name": "Formetric"
+      },
+      "potentialAction": {
+        "@type": "UseAction",
+        "target": "https://formetric.com/diagnostic",
+        "object": {
+          "@type": "WebApplication",
+          "name": "Financial Health Diagnostic"
+        }
+      }
+    }
+    </script>
+    
+    <!-- Performance Optimization: Preconnect to external domains -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="preconnect" href="https://cdn.tailwindcss.com">
+    <link rel="preconnect" href="https://www.googletagmanager.com">
+    <link rel="dns-prefetch" href="https://www.google-analytics.com">
+    
+    <!-- CSS Loading with optimized fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800;900&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Tailwind CSS loaded asynchronously -->
+    <script>
+        // Load Tailwind CSS asynchronously to prevent render blocking
+        const tailwindScript = document.createElement('script');
+        tailwindScript.src = 'https://cdn.tailwindcss.com';
+        tailwindScript.async = true;
+        document.head.appendChild(tailwindScript);
+    </script>
+    
+    <!-- Google Analytics 4 -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=GA_MEASUREMENT_ID"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'GA_MEASUREMENT_ID');
+        
+        // Track page view
+        gtag('event', 'page_view', {
+            page_title: 'Financial Diagnostic',
+            page_location: window.location.href
+        });
+    </script>
     <style>
         :root {
             --deep-charcoal: #0A0A0B;
@@ -238,6 +318,39 @@
             </div>
         </div>
     </main>
+
+    <!-- Footer -->
+    <footer class="bg-gray-900 text-white py-12">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="grid md:grid-cols-3 gap-8">
+                <div>
+                    <div class="text-2xl font-bold mb-4">Formetric</div>
+                    <p class="text-gray-400 mb-4">Professional financial assessment for health & wellness brands.</p>
+                </div>
+                
+                <div>
+                    <h3 class="font-semibold mb-4">Legal</h3>
+                    <ul class="space-y-2 text-gray-400">
+                        <li><a href="privacy-policy.html" class="hover:text-white transition-colors">Privacy Policy</a></li>
+                        <li><a href="terms.html" class="hover:text-white transition-colors">Terms of Service</a></li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h3 class="font-semibold mb-4">Product</h3>
+                    <ul class="space-y-2 text-gray-400">
+                        <li><a href="index.html" class="hover:text-white transition-colors">Home</a></li>
+                        <li><a href="diagnostic.html" class="hover:text-white transition-colors">Diagnostic Tool</a></li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="border-t border-gray-800 mt-8 pt-8 text-center text-gray-400">
+                <p>&copy; 2024 Formetric. All rights reserved.</p>
+                <p class="mt-2 text-sm">This tool provides educational information only and is not professional financial advice.</p>
+            </div>
+        </div>
+    </footer>
 
     <!-- Privacy Compliance Notice -->
     <div id="privacy-notice" class="fixed bottom-0 left-0 right-0 z-50 bg-gray-900 text-white p-4 transform translate-y-full transition-transform">

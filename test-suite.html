@@ -5,11 +5,27 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Formetric Diagnostic Test Suite</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Analytics 4 for testing -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=GA_MEASUREMENT_ID"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'GA_MEASUREMENT_ID');
+    </script>
+    
     <style>
         .test-pass { color: #10B981; }
         .test-fail { color: #DC2626; }
         .test-warning { color: #F59E0B; }
         .test-info { color: #2563EB; }
+        .performance-chart {
+            height: 200px;
+            border: 1px solid #e5e7eb;
+            border-radius: 8px;
+            padding: 16px;
+            margin: 16px 0;
+        }
     </style>
 </head>
 <body class="bg-gray-50 p-8">
@@ -20,12 +36,46 @@
             <!-- Test results will be populated here -->
         </div>
         
-        <div class="mt-8">
+        <!-- Monitoring Dashboard -->
+        <div id="monitoring-dashboard" class="bg-white rounded-lg p-6 shadow mb-8">
+            <h2 class="text-xl font-bold mb-4">Live Monitoring Dashboard</h2>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-4">
+                <div class="bg-gray-50 p-4 rounded">
+                    <div class="text-2xl font-bold text-blue-600" id="error-count">0</div>
+                    <div class="text-sm text-gray-600">JavaScript Errors</div>
+                </div>
+                <div class="bg-gray-50 p-4 rounded">
+                    <div class="text-2xl font-bold text-green-600" id="page-loads">0</div>
+                    <div class="text-sm text-gray-600">Page Loads</div>
+                </div>
+                <div class="bg-gray-50 p-4 rounded">
+                    <div class="text-2xl font-bold text-purple-600" id="diagnostic-starts">0</div>
+                    <div class="text-sm text-gray-600">Diagnostic Starts</div>
+                </div>
+            </div>
+            <div id="performance-metrics" class="performance-chart bg-gray-50 rounded">
+                <div class="text-center text-gray-500">Performance metrics will display here</div>
+            </div>
+        </div>
+
+        <div class="mt-8 flex flex-wrap gap-4">
             <button id="run-tests" class="bg-blue-600 text-white px-6 py-3 rounded-lg font-medium">
                 Run Complete Test Suite
             </button>
-            <button id="test-user-journey" class="bg-green-600 text-white px-6 py-3 rounded-lg font-medium ml-4">
+            <button id="test-user-journey" class="bg-green-600 text-white px-6 py-3 rounded-lg font-medium">
                 Test User Journey
+            </button>
+            <button id="test-analytics" class="bg-purple-600 text-white px-6 py-3 rounded-lg font-medium">
+                Test Analytics
+            </button>
+            <button id="test-accessibility" class="bg-orange-600 text-white px-6 py-3 rounded-lg font-medium">
+                Test Accessibility
+            </button>
+            <button id="performance-audit" class="bg-indigo-600 text-white px-6 py-3 rounded-lg font-medium">
+                Performance Audit
+            </button>
+            <button id="clear-logs" class="bg-gray-600 text-white px-6 py-3 rounded-lg font-medium">
+                Clear Logs
             </button>
         </div>
     </div>
@@ -395,28 +445,284 @@
             }
 
             async testPrivacyCompliance() {
-                const requiredElements = [
-                    'privacy policy link',
-                    'email consent checkbox',
-                    'unsubscribe mechanism',
-                    'data retention notice'
-                ];
-
-                const missingElements = requiredElements.filter(element => {
-                    // Check if these elements exist in the diagnostic flow
-                    return false; // For now, assume all are missing
-                });
-
-                if (missingElements.length === 0) {
-                    return {
-                        status: 'pass',
-                        message: 'All privacy compliance elements present'
-                    };
-                } else {
+                try {
+                    const checks = [];
+                    
+                    // Check for privacy policy link
+                    const privacyResponse = await fetch('./privacy-policy.html');
+                    checks.push({
+                        element: 'Privacy Policy Page',
+                        exists: privacyResponse.ok,
+                        details: privacyResponse.ok ? 'Accessible' : 'Missing or inaccessible'
+                    });
+                    
+                    // Check for terms page
+                    const termsResponse = await fetch('./terms.html');
+                    checks.push({
+                        element: 'Terms of Service Page',
+                        exists: termsResponse.ok,
+                        details: termsResponse.ok ? 'Accessible' : 'Missing or inaccessible'
+                    });
+                    
+                    // Check diagnostic page for consent elements
+                    const diagnosticResponse = await fetch('./diagnostic.html');
+                    if (diagnosticResponse.ok) {
+                        const diagnosticText = await diagnosticResponse.text();
+                        checks.push({
+                            element: 'Email Consent',
+                            exists: diagnosticText.includes('email') && diagnosticText.includes('consent'),
+                            details: 'Checking for email consent in diagnostic'
+                        });
+                        
+                        checks.push({
+                            element: 'Privacy Link in Diagnostic',
+                            exists: diagnosticText.includes('privacy') || diagnosticText.includes('Privacy'),
+                            details: 'Checking for privacy link in diagnostic flow'
+                        });
+                    }
+                    
+                    const failedChecks = checks.filter(check => !check.exists);
+                    
+                    if (failedChecks.length === 0) {
+                        return {
+                            status: 'pass',
+                            message: 'All privacy compliance elements present',
+                            details: checks.map(c => `${c.element}: ${c.details}`).join('\n')
+                        };
+                    } else {
+                        return {
+                            status: failedChecks.length < checks.length ? 'warning' : 'fail',
+                            message: `${failedChecks.length}/${checks.length} privacy elements missing`,
+                            details: checks.map(c => `${c.element}: ${c.exists ? '✓' : '✗'} ${c.details}`).join('\n')
+                        };
+                    }
+                } catch (error) {
                     return {
                         status: 'fail',
-                        message: 'Missing privacy compliance elements',
-                        details: `Missing: ${missingElements.join(', ')}`
+                        message: 'Privacy compliance test failed',
+                        details: error.message
+                    };
+                }
+            }
+
+            async testGoogleAnalytics() {
+                try {
+                    // Check if GA is loaded
+                    if (typeof gtag === 'undefined') {
+                        return {
+                            status: 'fail',
+                            message: 'Google Analytics not loaded',
+                            details: 'gtag function not found'
+                        };
+                    }
+                    
+                    // Test custom event tracking
+                    let eventFired = false;
+                    const originalGtag = window.gtag;
+                    
+                    // Override gtag to capture events
+                    window.gtag = function(...args) {
+                        if (args[0] === 'event') {
+                            eventFired = true;
+                        }
+                        return originalGtag.apply(this, args);
+                    };
+                    
+                    // Fire test event
+                    gtag('event', 'test_event', {
+                        event_category: 'test',
+                        event_label: 'test_suite'
+                    });
+                    
+                    // Restore original gtag
+                    window.gtag = originalGtag;
+                    
+                    if (eventFired) {
+                        return {
+                            status: 'pass',
+                            message: 'Google Analytics tracking functional',
+                            details: 'Custom events can be tracked'
+                        };
+                    } else {
+                        return {
+                            status: 'fail',
+                            message: 'Google Analytics event tracking failed',
+                            details: 'Custom events not firing'
+                        };
+                    }
+                } catch (error) {
+                    return {
+                        status: 'fail',
+                        message: 'Google Analytics test failed',
+                        details: error.message
+                    };
+                }
+            }
+
+            async testAccessibility() {
+                const issues = [];
+                
+                try {
+                    // Check for alt text on images
+                    const images = document.querySelectorAll('img');
+                    images.forEach((img, index) => {
+                        if (!img.alt) {
+                            issues.push(`Image ${index + 1} missing alt text`);
+                        }
+                    });
+                    
+                    // Check for proper heading hierarchy
+                    const headings = document.querySelectorAll('h1, h2, h3, h4, h5, h6');
+                    let lastLevel = 0;
+                    headings.forEach(heading => {
+                        const level = parseInt(heading.tagName.charAt(1));
+                        if (level > lastLevel + 1) {
+                            issues.push(`Heading hierarchy skip: ${heading.tagName} after H${lastLevel}`);
+                        }
+                        lastLevel = level;
+                    });
+                    
+                    // Check for form labels
+                    const inputs = document.querySelectorAll('input, textarea, select');
+                    inputs.forEach((input, index) => {
+                        if (!input.labels || input.labels.length === 0) {
+                            if (!input.getAttribute('aria-label') && !input.getAttribute('aria-labelledby')) {
+                                issues.push(`Form element ${index + 1} missing label or aria-label`);
+                            }
+                        }
+                    });
+                    
+                    // Check color contrast (basic check)
+                    const contrastIssues = this.checkColorContrast();
+                    issues.push(...contrastIssues);
+                    
+                    if (issues.length === 0) {
+                        return {
+                            status: 'pass',
+                            message: 'No accessibility issues found',
+                            details: 'Basic accessibility checks passed'
+                        };
+                    } else {
+                        return {
+                            status: issues.length > 5 ? 'fail' : 'warning',
+                            message: `${issues.length} accessibility issues found`,
+                            details: issues.join('\n')
+                        };
+                    }
+                } catch (error) {
+                    return {
+                        status: 'fail',
+                        message: 'Accessibility test failed',
+                        details: error.message
+                    };
+                }
+            }
+
+            checkColorContrast() {
+                // Basic color contrast check
+                const issues = [];
+                const elements = document.querySelectorAll('*');
+                
+                elements.forEach(element => {
+                    const styles = window.getComputedStyle(element);
+                    const color = styles.color;
+                    const backgroundColor = styles.backgroundColor;
+                    
+                    // Check if text is visible (not comprehensive, but basic check)
+                    if (color === backgroundColor && color !== 'rgba(0, 0, 0, 0)') {
+                        issues.push(`Potential contrast issue: ${element.tagName}`);
+                    }
+                });
+                
+                return issues.slice(0, 5); // Limit to 5 issues
+            }
+
+            async testPerformance() {
+                try {
+                    const navigationTiming = performance.getEntriesByType('navigation')[0];
+                    const metrics = {};
+                    
+                    if (navigationTiming) {
+                        metrics.domContentLoaded = Math.round(navigationTiming.domContentLoadedEventEnd - navigationTiming.navigationStart);
+                        metrics.loadComplete = Math.round(navigationTiming.loadEventEnd - navigationTiming.navigationStart);
+                        metrics.firstByte = Math.round(navigationTiming.responseStart - navigationTiming.navigationStart);
+                    }
+                    
+                    // Test Core Web Vitals if available
+                    if ('web-vitals' in window) {
+                        // Web Vitals library is loaded
+                        metrics.coreWebVitals = 'Available';
+                    } else {
+                        metrics.coreWebVitals = 'Not loaded';
+                    }
+                    
+                    // Performance score calculation
+                    let score = 100;
+                    let issues = [];
+                    
+                    if (metrics.domContentLoaded > 2000) {
+                        score -= 20;
+                        issues.push('DOM Content Loaded > 2s');
+                    }
+                    
+                    if (metrics.loadComplete > 4000) {
+                        score -= 20;
+                        issues.push('Load Complete > 4s');
+                    }
+                    
+                    if (metrics.firstByte > 1000) {
+                        score -= 10;
+                        issues.push('First Byte > 1s');
+                    }
+                    
+                    const status = score >= 80 ? 'pass' : score >= 60 ? 'warning' : 'fail';
+                    
+                    return {
+                        status: status,
+                        message: `Performance Score: ${score}/100`,
+                        details: `DOM Ready: ${metrics.domContentLoaded}ms\nLoad Complete: ${metrics.loadComplete}ms\nFirst Byte: ${metrics.firstByte}ms\nIssues: ${issues.join(', ') || 'None'}`
+                    };
+                } catch (error) {
+                    return {
+                        status: 'fail',
+                        message: 'Performance test failed',
+                        details: error.message
+                    };
+                }
+            }
+
+            async testEmailServerlessFunction() {
+                try {
+                    const testData = {
+                        email: 'test@example.com',
+                        results: {
+                            company_name: 'Test Company',
+                            score: { overall: 75 },
+                            recommendations: ['Test recommendation']
+                        }
+                    };
+                    
+                    // Check if the serverless function endpoint exists
+                    const response = await fetch('./api/send-email.js');
+                    
+                    if (response.ok) {
+                        return {
+                            status: 'pass',
+                            message: 'Email serverless function exists',
+                            details: 'Function file found and accessible'
+                        };
+                    } else {
+                        return {
+                            status: 'warning',
+                            message: 'Email serverless function not accessible',
+                            details: 'Function may not be deployed or properly configured'
+                        };
+                    }
+                } catch (error) {
+                    return {
+                        status: 'fail',
+                        message: 'Email serverless function test failed',
+                        details: error.message
                     };
                 }
             }
@@ -477,6 +783,48 @@
         // Initialize test suite
         const testSuite = new DiagnosticTestSuite();
 
+        // Error monitoring system
+        let errorCount = 0;
+        let pageLoads = 0;
+        let diagnosticStarts = 0;
+        
+        // Global error handler
+        window.addEventListener('error', (event) => {
+            errorCount++;
+            document.getElementById('error-count').textContent = errorCount;
+            console.error('Monitored Error:', event.error);
+        });
+        
+        // Unhandled promise rejection handler
+        window.addEventListener('unhandledrejection', (event) => {
+            errorCount++;
+            document.getElementById('error-count').textContent = errorCount;
+            console.error('Monitored Promise Rejection:', event.reason);
+        });
+        
+        // Performance monitoring
+        function updatePerformanceMetrics() {
+            const nav = performance.getEntriesByType('navigation')[0];
+            if (nav) {
+                const metricsHtml = `
+                    <div class="grid grid-cols-2 gap-4 text-sm">
+                        <div><strong>DOM Ready:</strong> ${Math.round(nav.domContentLoadedEventEnd - nav.navigationStart)}ms</div>
+                        <div><strong>Load Complete:</strong> ${Math.round(nav.loadEventEnd - nav.navigationStart)}ms</div>
+                        <div><strong>First Byte:</strong> ${Math.round(nav.responseStart - nav.navigationStart)}ms</div>
+                        <div><strong>DNS Lookup:</strong> ${Math.round(nav.domainLookupEnd - nav.domainLookupStart)}ms</div>
+                    </div>
+                `;
+                document.getElementById('performance-metrics').innerHTML = metricsHtml;
+            }
+        }
+        
+        // Update performance metrics on load
+        window.addEventListener('load', () => {
+            pageLoads++;
+            document.getElementById('page-loads').textContent = pageLoads;
+            setTimeout(updatePerformanceMetrics, 100);
+        });
+
         // Add all tests
         testSuite.addTest('localStorage Support', () => testSuite.testLocalStorageSupport(), 'infrastructure');
         testSuite.addTest('Diagnostic Form Validation', () => testSuite.testDiagnosticFormValidation(), 'functionality');
@@ -486,6 +834,10 @@
         testSuite.addTest('Supabase Connection', () => testSuite.testSupabaseConnection(), 'infrastructure');
         testSuite.addTest('Email Delivery', () => testSuite.testEmailDelivery(), 'infrastructure');
         testSuite.addTest('Privacy Compliance', () => testSuite.testPrivacyCompliance(), 'legal');
+        testSuite.addTest('Google Analytics', () => testSuite.testGoogleAnalytics(), 'analytics');
+        testSuite.addTest('Accessibility', () => testSuite.testAccessibility(), 'accessibility');
+        testSuite.addTest('Performance Metrics', () => testSuite.testPerformance(), 'performance');
+        testSuite.addTest('Email Serverless Function', () => testSuite.testEmailServerlessFunction(), 'infrastructure');
 
         // Event listeners
         document.getElementById('run-tests').addEventListener('click', () => {
@@ -508,9 +860,56 @@
             `;
         });
 
+        // Additional event listeners for new buttons
+        document.getElementById('test-analytics').addEventListener('click', async () => {
+            const result = await testSuite.testGoogleAnalytics();
+            testSuite.displaySingleResult('Google Analytics Test', result);
+        });
+        
+        document.getElementById('test-accessibility').addEventListener('click', async () => {
+            const result = await testSuite.testAccessibility();
+            testSuite.displaySingleResult('Accessibility Test', result);
+        });
+        
+        document.getElementById('performance-audit').addEventListener('click', async () => {
+            const result = await testSuite.testPerformance();
+            testSuite.displaySingleResult('Performance Audit', result);
+        });
+        
+        document.getElementById('clear-logs').addEventListener('click', () => {
+            errorCount = 0;
+            document.getElementById('error-count').textContent = '0';
+            console.clear();
+        });
+        
+        // Helper method to display single test result
+        testSuite.displaySingleResult = function(testName, result) {
+            const statusClass = result.status === 'pass' ? 'test-pass' : 
+                              result.status === 'fail' ? 'test-fail' :
+                              result.status === 'warning' ? 'test-warning' : 'test-info';
+            
+            document.getElementById('test-results').innerHTML = `
+                <div class="bg-white rounded-lg p-6 shadow">
+                    <h2 class="text-xl font-bold mb-4">${testName}</h2>
+                    <div class="border-l-4 ${result.status === 'pass' ? 'border-green-500' : 
+                                              result.status === 'fail' ? 'border-red-500' :
+                                              result.status === 'warning' ? 'border-yellow-500' : 'border-blue-500'} pl-4 py-2">
+                        <div class="flex items-center gap-2">
+                            <span class="${statusClass} font-medium">${result.status.toUpperCase()}</span>
+                            <span class="font-medium">${result.message}</span>
+                        </div>
+                        ${result.details ? `<pre class="text-xs text-gray-500 mt-2 whitespace-pre-wrap">${result.details}</pre>` : ''}
+                    </div>
+                </div>
+            `;
+        };
+
         // Auto-run tests on load
         document.addEventListener('DOMContentLoaded', () => {
-            setTimeout(() => testSuite.runAllTests(), 1000);
+            setTimeout(() => {
+                updatePerformanceMetrics();
+                testSuite.runAllTests();
+            }, 1000);
         });
     </script>
 </body>

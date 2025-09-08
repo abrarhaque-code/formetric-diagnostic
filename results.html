@@ -3,9 +3,61 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Your Financial Health Analysis - Formetric</title>
-    <script src="https://cdn.tailwindcss.com"></script>
+    <title>Your Financial Health Analysis Results - Personalized Recommendations | Formetric</title>
+    <meta name="description" content="Review your comprehensive financial health analysis with personalized recommendations to optimize cash flow, reduce costs, and accelerate growth for your wellness brand.">
+    <meta name="keywords" content="financial analysis results, cash flow recommendations, business growth strategy, financial optimization, wellness brand analytics">
+    <meta name="author" content="Formetric">
+    <meta name="robots" content="noindex, nofollow">
+    <link rel="canonical" href="https://formetric.com/results">
+    
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://formetric.com/results">
+    <meta property="og:title" content="Your Financial Health Analysis Results - Formetric">
+    <meta property="og:description" content="Personalized financial recommendations and insights for your health & wellness brand based on AI-powered analysis.">
+    <meta property="og:image" content="https://formetric.com/og-results.png">
+    <meta property="og:site_name" content="Formetric">
+    
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="https://formetric.com/results">
+    <meta property="twitter:title" content="Your Financial Health Analysis Results - Formetric">
+    <meta property="twitter:description" content="Personalized financial recommendations and insights for your health & wellness brand based on AI-powered analysis.">
+    <meta property="twitter:image" content="https://formetric.com/og-results.png">
+    
+    <!-- Performance Optimization: Preconnect to external domains -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="preconnect" href="https://cdn.tailwindcss.com">
+    <link rel="preconnect" href="https://www.googletagmanager.com">
+    <link rel="dns-prefetch" href="https://www.google-analytics.com">
+    
+    <!-- CSS Loading with optimized fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800;900&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Tailwind CSS loaded asynchronously -->
+    <script>
+        // Load Tailwind CSS asynchronously to prevent render blocking
+        const tailwindScript = document.createElement('script');
+        tailwindScript.src = 'https://cdn.tailwindcss.com';
+        tailwindScript.async = true;
+        document.head.appendChild(tailwindScript);
+    </script>
+    
+    <!-- Google Analytics 4 -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=GA_MEASUREMENT_ID"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'GA_MEASUREMENT_ID');
+        
+        // Track page view
+        gtag('event', 'page_view', {
+            page_title: 'Financial Health Analysis Results',
+            page_location: window.location.href
+        });
+    </script>
     <style>
         :root {
             --deep-charcoal: #0A0A0B;
@@ -50,45 +102,152 @@
             background-size: 600px 600px, 400px 400px;
         }
         
-        .score-circle {
-            width: 120px;
-            height: 120px;
-            border-radius: 50%;
-            border: 8px solid rgba(255,255,255,0.2);
+        .category-badge {
+            width: 240px;
+            height: 100px;
+            border-radius: 20px;
             display: flex;
+            flex-direction: column;
             align-items: center;
             justify-content: center;
             position: relative;
             margin: 0 auto;
-        }
-        
-        .score-circle.excellent {
-            border-color: var(--success-green);
-            background: rgba(16, 185, 129, 0.1);
-        }
-        
-        .score-circle.good {
-            border-color: var(--signal-blue);
-            background: rgba(46, 134, 171, 0.1);
-        }
-        
-        .score-circle.needs-improvement {
-            border-color: var(--warning-amber);
-            background: rgba(245, 158, 11, 0.1);
-        }
-        
-        .insight-card {
-            background: rgba(255, 255, 255, 0.95);
-            border-radius: 20px;
+            font-weight: 800;
+            font-size: 24px;
+            letter-spacing: -0.02em;
             box-shadow: var(--premium-shadow);
-            backdrop-filter: blur(20px);
-            border: 1px solid rgba(255,255,255,0.6);
+            border: 2px solid rgba(255,255,255,0.2);
+            backdrop-filter: blur(10px);
             transition: all 400ms cubic-bezier(0.4, 0, 0.2, 1);
         }
         
+        @media (max-width: 768px) {
+            .category-badge {
+                width: 200px;
+                height: 80px;
+                font-size: 20px;
+            }
+            
+            .category-subtitle {
+                font-size: 10px;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .category-badge {
+                width: 180px;
+                height: 70px;
+                font-size: 18px;
+            }
+        }
+        
+        .category-badge::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            border-radius: 18px;
+            padding: 2px;
+            background: linear-gradient(135deg, rgba(255,255,255,0.3), transparent);
+            -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+            -webkit-mask-composite: xor;
+            mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+            mask-composite: exclude;
+        }
+        
+        .category-badge:hover {
+            transform: translateY(-4px) scale(1.02);
+            box-shadow: 0px 24px 80px rgba(0,0,0,0.25);
+        }
+        
+        .category-badge.strong {
+            background: linear-gradient(135deg, #10B981 0%, #059669 50%, #047857 100%);
+            color: white;
+            text-shadow: 0px 2px 8px rgba(0,0,0,0.3);
+        }
+        
+        .category-badge.developing {
+            background: linear-gradient(135deg, #2E86AB 0%, #1e7fa3 50%, #1a73e8 100%);
+            color: white;
+            text-shadow: 0px 2px 8px rgba(0,0,0,0.3);
+        }
+        
+        .category-badge.growing {
+            background: linear-gradient(135deg, #F59E0B 0%, #d97706 50%, #b45309 100%);
+            color: white;
+            text-shadow: 0px 2px 8px rgba(0,0,0,0.3);
+        }
+        
+        .category-badge.emerging {
+            background: linear-gradient(135deg, #8B5CF6 0%, #7c3aed 50%, #6d28d9 100%);
+            color: white;
+            text-shadow: 0px 2px 8px rgba(0,0,0,0.3);
+        }
+        
+        .category-subtitle {
+            font-size: 12px;
+            font-weight: 600;
+            opacity: 0.9;
+            margin-top: 4px;
+            letter-spacing: 0.05em;
+            text-transform: uppercase;
+        }
+        
+        .insight-card {
+            background: rgba(255, 255, 255, 0.98);
+            border-radius: 24px;
+            box-shadow: var(--premium-shadow);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255,255,255,0.8);
+            transition: all 500ms cubic-bezier(0.4, 0, 0.2, 1);
+            padding: 32px;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .insight-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, var(--signal-blue) 0%, var(--wellness-purple) 50%, var(--success-green) 100%);
+            opacity: 0;
+            transition: opacity 300ms ease;
+        }
+        
+        .insight-card:hover::before {
+            opacity: 0.6;
+        }
+        
         .insight-card:hover {
-            transform: translateY(-4px);
-            box-shadow: 0px 24px 88px rgba(0,0,0,0.2);
+            transform: translateY(-8px);
+            box-shadow: 0px 32px 120px rgba(0,0,0,0.25);
+            border-color: rgba(139, 92, 246, 0.2);
+        }
+        
+        .insight-card h3 {
+            font-size: 24px;
+            font-weight: 800;
+            letter-spacing: -0.02em;
+            margin-bottom: 16px;
+            color: var(--deep-charcoal);
+        }
+        
+        .insight-card .category-text {
+            font-size: 20px;
+            font-weight: 700;
+            margin-bottom: 12px;
+        }
+        
+        .insight-card p {
+            font-size: 16px;
+            line-height: 1.6;
+            color: var(--editorial-gray);
+            margin-bottom: 20px;
         }
         
         .benchmark-bar {
@@ -118,13 +277,15 @@
         }
         
         .email-capture-card {
-            background: linear-gradient(135deg, rgba(139, 92, 246, 0.05) 0%, rgba(16, 185, 129, 0.05) 100%);
-            border: 2px solid rgba(139, 92, 246, 0.1);
-            border-radius: 24px;
-            padding: 40px;
+            background: linear-gradient(135deg, rgba(139, 92, 246, 0.08) 0%, rgba(16, 185, 129, 0.08) 100%);
+            border: 3px solid rgba(139, 92, 246, 0.15);
+            border-radius: 32px;
+            padding: 60px 40px;
             text-align: center;
             position: relative;
             overflow: hidden;
+            box-shadow: var(--premium-shadow);
+            backdrop-filter: blur(20px);
         }
         
         .email-capture-card::before {
@@ -133,8 +294,70 @@
             top: 0;
             left: 0;
             right: 0;
-            height: 4px;
-            background: linear-gradient(90deg, var(--wellness-purple) 0%, var(--success-green) 100%);
+            height: 6px;
+            background: linear-gradient(90deg, var(--wellness-purple) 0%, var(--signal-blue) 50%, var(--success-green) 100%);
+        }
+        
+        .email-capture-card h2 {
+            font-size: 3rem;
+            font-weight: 900;
+            letter-spacing: -0.03em;
+            margin-bottom: 24px;
+            color: var(--deep-charcoal);
+            text-shadow: 0px 2px 8px rgba(0,0,0,0.05);
+        }
+        
+        .email-capture-card > p {
+            font-size: 1.25rem;
+            line-height: 1.6;
+            color: var(--editorial-gray);
+            font-weight: 500;
+            margin-bottom: 32px;
+        }
+        
+        @media (max-width: 768px) {
+            .email-capture-card {
+                padding: 40px 24px;
+                border-radius: 24px;
+            }
+            
+            .email-capture-card h2 {
+                font-size: 2.25rem;
+                margin-bottom: 20px;
+            }
+            
+            .email-capture-card > p {
+                font-size: 1.125rem;
+                margin-bottom: 28px;
+            }
+            
+            .insight-card {
+                padding: 24px;
+            }
+            
+            .insight-card h3 {
+                font-size: 20px;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .email-capture-card h2 {
+                font-size: 1.875rem;
+                line-height: 1.1;
+            }
+            
+            .email-capture-card > p {
+                font-size: 1rem;
+            }
+            
+            .insight-card {
+                padding: 20px;
+            }
+            
+            .insight-card h3 {
+                font-size: 18px;
+                margin-bottom: 12px;
+            }
         }
         
         .premium-input {
@@ -229,18 +452,18 @@
     <section class="results-hero pt-20 pb-16 relative">
         <div class="max-w-4xl mx-auto px-6 text-center relative z-10">
             <div class="mb-8">
-                <div class="score-circle mb-6" id="score-circle">
+                <div class="category-badge mb-8" id="category-badge">
                     <div class="text-center">
-                        <div class="text-3xl font-black" id="overall-score">--</div>
-                        <div class="text-sm font-medium opacity-90">Score</div>
+                        <div class="text-2xl font-bold" id="category-label">Loading...</div>
+                        <div class="category-subtitle" id="category-subtitle">Financial Assessment</div>
                     </div>
                 </div>
                 
-                <h1 class="text-4xl md:text-5xl font-bold mb-4" id="results-headline">
+                <h1 class="text-5xl md:text-6xl lg:text-7xl font-black mb-6 leading-tight" id="results-headline" style="letter-spacing: -0.03em; text-shadow: 0px 4px 16px rgba(0,0,0,0.1);">
                     Your Financial Health Analysis
                 </h1>
                 
-                <p class="text-xl opacity-90 mb-6" id="results-subtitle">
+                <p class="text-xl md:text-2xl opacity-95 mb-8 max-w-3xl mx-auto leading-relaxed font-medium" id="results-subtitle" style="letter-spacing: -0.01em;">
                     Based on your responses, here's what we found...
                 </p>
                 
@@ -256,22 +479,22 @@
         <div class="max-w-6xl mx-auto px-6">
             
             <!-- Key Insights Grid -->
-            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8 mb-16">
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-10 mb-20">
                 
                 <!-- Financial Health -->
-                <div class="insight-card p-8">
-                    <div class="flex items-center gap-3 mb-4">
-                        <div class="w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center">
-                            <svg class="w-6 h-6 text-blue-600" fill="currentColor" viewBox="0 0 20 20">
+                <div class="insight-card">
+                    <div class="flex items-center gap-4 mb-6">
+                        <div class="w-16 h-16 bg-gradient-to-br from-blue-100 to-blue-200 rounded-2xl flex items-center justify-center">
+                            <svg class="w-8 h-8 text-blue-600" fill="currentColor" viewBox="0 0 20 20">
                                 <path d="M4 4a2 2 0 00-2 2v1h16V6a2 2 0 00-2-2H4zM18 9H2v5a2 2 0 002 2h12a2 2 0 002-2V9zM4 13a1 1 0 011-1h1a1 1 0 110 2H5a1 1 0 01-1-1zm5-1a1 1 0 100 2h1a1 1 0 100-2H9z" />
                             </svg>
                         </div>
                         <div>
-                            <h3 class="font-bold text-lg">Financial Health</h3>
-                            <div class="text-2xl font-black text-blue-600" id="financial-score">--/100</div>
+                            <h3>Financial Health</h3>
+                            <div class="category-text text-blue-600" id="financial-category">--</div>
                         </div>
                     </div>
-                    <p class="text-gray-600 text-sm mb-4" id="financial-insight">
+                    <p id="financial-insight">
                         Analyzing your unit economics and cash position...
                     </p>
                     <div class="opportunity-tag" id="financial-opportunity">
@@ -280,19 +503,19 @@
                 </div>
 
                 <!-- Growth Potential -->
-                <div class="insight-card p-8">
-                    <div class="flex items-center gap-3 mb-4">
-                        <div class="w-12 h-12 bg-green-100 rounded-full flex items-center justify-center">
-                            <svg class="w-6 h-6 text-green-600" fill="currentColor" viewBox="0 0 20 20">
+                <div class="insight-card">
+                    <div class="flex items-center gap-4 mb-6">
+                        <div class="w-16 h-16 bg-gradient-to-br from-green-100 to-emerald-200 rounded-2xl flex items-center justify-center">
+                            <svg class="w-8 h-8 text-green-600" fill="currentColor" viewBox="0 0 20 20">
                                 <path fill-rule="evenodd" d="M12 7a1 1 0 110-2h5a1 1 0 011 1v5a1 1 0 11-2 0V8.414l-4.293 4.293a1 1 0 01-1.414 0L8 10.414l-4.293 4.293a1 1 0 01-1.414-1.414l5-5a1 1 0 011.414 0L11 10.586 14.586 7H12z" clip-rule="evenodd" />
                             </svg>
                         </div>
                         <div>
-                            <h3 class="font-bold text-lg">Growth Potential</h3>
-                            <div class="text-2xl font-black text-green-600" id="growth-score">--/100</div>
+                            <h3>Growth Potential</h3>
+                            <div class="category-text text-green-600" id="growth-category">--</div>
                         </div>
                     </div>
-                    <p class="text-gray-600 text-sm mb-4" id="growth-insight">
+                    <p id="growth-insight">
                         Evaluating your market position and scalability...
                     </p>
                     <div class="opportunity-tag" id="growth-opportunity">
@@ -301,19 +524,19 @@
                 </div>
 
                 <!-- Operational Efficiency -->
-                <div class="insight-card p-8 md:col-span-2 lg:col-span-1">
-                    <div class="flex items-center gap-3 mb-4">
-                        <div class="w-12 h-12 bg-purple-100 rounded-full flex items-center justify-center">
-                            <svg class="w-6 h-6 text-purple-600" fill="currentColor" viewBox="0 0 20 20">
+                <div class="insight-card md:col-span-2 lg:col-span-1">
+                    <div class="flex items-center gap-4 mb-6">
+                        <div class="w-16 h-16 bg-gradient-to-br from-purple-100 to-violet-200 rounded-2xl flex items-center justify-center">
+                            <svg class="w-8 h-8 text-purple-600" fill="currentColor" viewBox="0 0 20 20">
                                 <path fill-rule="evenodd" d="M11.49 3.17c-.38-1.56-2.6-1.56-2.98 0a1.532 1.532 0 01-2.286.948c-1.372-.836-2.942.734-2.106 2.106.54.886.061 2.042-.947 2.287-1.561.379-1.561 2.6 0 2.978a1.532 1.532 0 01.947 2.287c-.836 1.372.734 2.942 2.106 2.106a1.532 1.532 0 012.287.947c.379 1.561 2.6 1.561 2.978 0a1.533 1.533 0 012.287-.947c1.372.836 2.942-.734 2.106-2.106a1.533 1.533 0 01.947-2.287c1.561-.379 1.561-2.6 0-2.978a1.532 1.532 0 01-.947-2.287c.836-1.372-.734-2.942-2.106-2.106a1.532 1.532 0 01-2.287-.947zM10 13a3 3 0 100-6 3 3 0 000 6z" clip-rule="evenodd" />
                             </svg>
                         </div>
                         <div>
-                            <h3 class="font-bold text-lg">Efficiency</h3>
-                            <div class="text-2xl font-black text-purple-600" id="efficiency-score">--/100</div>
+                            <h3>Efficiency</h3>
+                            <div class="category-text text-purple-600" id="efficiency-category">--</div>
                         </div>
                     </div>
-                    <p class="text-gray-600 text-sm mb-4" id="efficiency-insight">
+                    <p id="efficiency-insight">
                         Reviewing your operational effectiveness...
                     </p>
                     <div class="opportunity-tag" id="efficiency-opportunity">
@@ -323,10 +546,10 @@
             </div>
 
             <!-- Key Recommendations -->
-            <div class="insight-card p-8 mb-16">
-                <div class="text-center mb-8">
-                    <h2 class="text-2xl font-bold mb-2">Your Key Opportunities</h2>
-                    <p class="text-gray-600">Based on your diagnostic responses</p>
+            <div class="insight-card mb-20">
+                <div class="text-center mb-12">
+                    <h2 class="text-4xl font-black mb-4" style="letter-spacing: -0.02em;">Your Key Opportunities</h2>
+                    <p class="text-lg text-gray-600 font-medium">Based on your diagnostic responses</p>
                 </div>
                 
                 <div class="max-w-2xl mx-auto">
@@ -334,11 +557,16 @@
                         <!-- Recommendations will be populated by JavaScript -->
                     </div>
                     
-                    <div class="bg-gray-50 border border-gray-200 rounded-lg p-6 mt-6">
+                    <div class="bg-amber-50 border border-amber-200 rounded-lg p-6 mt-6">
                         <div class="text-center">
-                            <h3 class="font-semibold mb-2">Industry Benchmarking Coming Soon</h3>
-                            <p class="text-gray-600 text-sm">
-                                We're building a comprehensive database of wellness brand metrics to provide accurate industry comparisons in future versions.
+                            <div class="flex items-center justify-center gap-2 mb-2">
+                                <svg class="w-5 h-5 text-amber-600" fill="currentColor" viewBox="0 0 20 20">
+                                    <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clip-rule="evenodd" />
+                                </svg>
+                                <h3 class="font-semibold text-amber-800">Assessment Methodology</h3>
+                            </div>
+                            <p class="text-amber-700 text-sm">
+                                This assessment provides educational guidance based on financial best practices, not industry benchmarking data. Results are for informational purposes only and not professional financial advice.
                             </p>
                         </div>
                     </div>
@@ -346,12 +574,12 @@
             </div>
 
             <!-- Email Capture -->
-            <div class="email-capture-card mb-16">
-                <div class="max-w-md mx-auto">
-                    <h2 class="text-3xl font-bold mb-4">Get Your Personalized Insights</h2>
-                    <p class="text-lg text-gray-600 mb-6">
-                        Receive your complete analysis with personalized recommendations 
-                        and next steps to improve your financial health score.
+            <div class="email-capture-card mb-20">
+                <div class="max-w-lg mx-auto">
+                    <h2>Get Your Personalized Insights</h2>
+                    <p>
+                        Receive your complete analysis with specific, actionable recommendations 
+                        tailored to your business category and growth stage.
                     </p>
                     
                     <div class="bg-blue-50 border border-blue-200 rounded-lg p-4 mb-6">
@@ -397,6 +625,34 @@
                 </div>
             </div>
 
+            <!-- Financial Disclaimer -->
+            <div class="bg-amber-50 border border-amber-200 rounded-2xl p-8 mb-16">
+                <div class="flex items-start gap-4">
+                    <div class="w-12 h-12 bg-amber-100 rounded-full flex items-center justify-center flex-shrink-0">
+                        <svg class="w-6 h-6 text-amber-600" fill="currentColor" viewBox="0 0 20 20">
+                            <path fill-rule="evenodd" d="M8.257 3.099c.765-1.36 2.722-1.36 3.486 0l5.58 9.92c.75 1.334-.213 2.98-1.742 2.98H4.42c-1.53 0-2.493-1.646-1.743-2.98l5.58-9.92zM11 13a1 1 0 11-2 0 1 1 0 012 0zm-1-8a1 1 0 00-1 1v3a1 1 0 002 0V6a1 1 0 00-1-1z" clip-rule="evenodd" />
+                        </svg>
+                    </div>
+                    <div>
+                        <h3 class="font-bold text-xl mb-4 text-amber-800">Important Financial Disclaimer</h3>
+                        <div class="space-y-3 text-amber-700">
+                            <p class="font-semibold">
+                                This analysis is for <strong>informational and educational purposes only</strong> and does not constitute professional financial, investment, accounting, tax, or legal advice.
+                            </p>
+                            <p>
+                                Every business situation is unique. The diagnostic scores and recommendations provided are based on general industry patterns and should not be relied upon as the sole basis for financial decisions.
+                            </p>
+                            <p>
+                                <strong>We strongly recommend consulting with qualified professionals</strong> (CPAs, financial advisors, business consultants) before implementing any financial strategies or making significant business decisions.
+                            </p>
+                            <p class="text-sm">
+                                By using this diagnostic tool, you acknowledge that Formetric is not liable for any financial losses or business consequences resulting from actions taken based on this analysis.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
             <!-- Social Proof -->
             <div class="grid md:grid-cols-3 gap-6 mb-16">
                 <div class="social-proof-item">
@@ -432,6 +688,39 @@
 
         </div>
     </main>
+
+    <!-- Footer -->
+    <footer class="bg-gray-900 text-white py-12">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="grid md:grid-cols-3 gap-8">
+                <div>
+                    <div class="text-2xl font-bold mb-4">Formetric</div>
+                    <p class="text-gray-400 mb-4">CFO-grade insights for health & wellness brands.</p>
+                </div>
+                
+                <div>
+                    <h3 class="font-semibold mb-4">Legal</h3>
+                    <ul class="space-y-2 text-gray-400">
+                        <li><a href="privacy-policy.html" class="hover:text-white transition-colors">Privacy Policy</a></li>
+                        <li><a href="terms.html" class="hover:text-white transition-colors">Terms of Service</a></li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h3 class="font-semibold mb-4">Product</h3>
+                    <ul class="space-y-2 text-gray-400">
+                        <li><a href="index.html" class="hover:text-white transition-colors">Home</a></li>
+                        <li><a href="diagnostic.html" class="hover:text-white transition-colors">Diagnostic Tool</a></li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="border-t border-gray-800 mt-8 pt-8 text-center text-gray-400">
+                <p>&copy; 2024 Formetric. All rights reserved.</p>
+                <p class="mt-2 text-sm">This tool provides educational information only and is not professional financial advice.</p>
+            </div>
+        </div>
+    </footer>
 
     <script src="email-service.js"></script>
     <script src="supabase-client.js"></script>

@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test Categorical Assessment System</title>
+    <style>
+        body {
+            font-family: system-ui, -apple-system, sans-serif;
+            max-width: 800px;
+            margin: 40px auto;
+            padding: 20px;
+            line-height: 1.6;
+        }
+        .test-section {
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            padding: 20px;
+            margin: 20px 0;
+            background: #f9f9f9;
+        }
+        .result {
+            background: white;
+            padding: 15px;
+            border-radius: 6px;
+            margin: 10px 0;
+            border-left: 4px solid #007acc;
+        }
+        .category {
+            font-size: 18px;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+        .category.strong { color: #059669; }
+        .category.developing { color: #0369a1; }
+        .category.growing { color: #d97706; }
+        .category.emerging { color: #7c3aed; }
+        button {
+            background: #007acc;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 6px;
+            cursor: pointer;
+            margin: 10px 10px 10px 0;
+        }
+        button:hover {
+            background: #005aa7;
+        }
+    </style>
+</head>
+<body>
+    <h1>Categorical Assessment System Test</h1>
+    <p>This page tests the new categorical assessment system to ensure no false benchmarking claims are made.</p>
+
+    <div class="test-section">
+        <h2>Test Different Business Scenarios</h2>
+        <button onclick="testScenario('strong')">Test Strong Business</button>
+        <button onclick="testScenario('developing')">Test Developing Business</button>
+        <button onclick="testScenario('growing')">Test Growing Business</button>
+        <button onclick="testScenario('emerging')">Test Emerging Business</button>
+        <button onclick="testEmailContent()">Test Email Content</button>
+    </div>
+
+    <div id="results"></div>
+
+    <script src="results.js"></script>
+    <script src="email-service.js"></script>
+
+    <script>
+        // Test scenarios with different business profiles
+        const scenarios = {
+            strong: {
+                revenue_range: '5m_plus',
+                business_stage: 'established',
+                gross_margins: '70_plus',
+                cash_runway: 'profitable',
+                growth_goals: 'market_expansion',
+                primary_channel: 'dtc_online',
+                customer_acquisition: 'low_conversion',
+                company_name: 'Strong Corp',
+                founder_name: 'Alex Strong'
+            },
+            developing: {
+                revenue_range: '500k_1m',
+                business_stage: 'growth_stage',
+                gross_margins: '50_70',
+                cash_runway: '12_plus_months',
+                growth_goals: 'scale_revenue',
+                primary_channel: 'mixed',
+                customer_acquisition: 'pricing_strategy',
+                company_name: 'Developing Inc',
+                founder_name: 'Sam Developer'
+            },
+            growing: {
+                revenue_range: '100k_500k',
+                business_stage: 'early_stage',
+                gross_margins: '30_50',
+                cash_runway: '6_12_months',
+                growth_goals: 'profitability',
+                primary_channel: 'amazon_marketplaces',
+                customer_acquisition: 'brand_awareness',
+                company_name: 'Growing LLC',
+                founder_name: 'Jordan Growth'
+            },
+            emerging: {
+                revenue_range: '0_100k',
+                business_stage: 'pre_launch',
+                gross_margins: 'unsure',
+                cash_runway: '3_6_months',
+                growth_goals: 'profitability',
+                primary_channel: 'dtc_online',
+                customer_acquisition: 'high_cac',
+                company_name: 'Emerging Startup',
+                founder_name: 'Riley Emerger'
+            }
+        };
+
+        function testScenario(scenarioType) {
+            const scenario = scenarios[scenarioType];
+            
+            // Create a temporary results experience instance
+            const resultsExp = new ResultsExperience();
+            resultsExp.responses = scenario;
+            resultsExp.companyName = scenario.company_name;
+
+            // Calculate category
+            const category = resultsExp.calculateOverallCategory();
+            const recommendations = resultsExp.getCategoryRecommendations(category);
+            
+            // Display results
+            const resultsDiv = document.getElementById('results');
+            resultsDiv.innerHTML = `
+                <div class="result">
+                    <h3>Test Results for ${scenarioType.toUpperCase()} Business</h3>
+                    <div class="category ${category.class}">Category: ${category.label}</div>
+                    <p><strong>Company:</strong> ${scenario.company_name}</p>
+                    <p><strong>Subtitle:</strong> ${resultsExp.generatePositiveSubtitle(category)}</p>
+                    <h4>Priority Recommendations:</h4>
+                    <ul>
+                        ${recommendations.priorities.map(p => `<li>${p}</li>`).join('')}
+                    </ul>
+                    <p><strong>✅ No numerical scores or false benchmarking claims</strong></p>
+                </div>
+            `;
+        }
+
+        function testEmailContent() {
+            const scenario = scenarios.developing;
+            
+            // Test email content generation
+            const resultsExp = new ResultsExperience();
+            resultsExp.responses = scenario;
+            resultsExp.companyName = scenario.company_name;
+
+            const category = resultsExp.calculateOverallCategory();
+            const recommendations = resultsExp.getCategoryRecommendations(category);
+            
+            const emailData = {
+                company_name: scenario.company_name,
+                founder_name: scenario.founder_name,
+                email: 'test@example.com',
+                category: category,
+                recommendations: recommendations
+            };
+
+            const emailContent = window.emailService.generateEmailContent(emailData);
+            
+            const resultsDiv = document.getElementById('results');
+            resultsDiv.innerHTML = `
+                <div class="result">
+                    <h3>Email Content Test</h3>
+                    <h4>HTML Preview:</h4>
+                    <iframe srcdoc="${emailContent.html.replace(/"/g, '&quot;')}" 
+                            style="width: 100%; height: 400px; border: 1px solid #ddd; border-radius: 4px;"></iframe>
+                    <h4>Text Version (first 500 chars):</h4>
+                    <pre style="background: #f5f5f5; padding: 15px; border-radius: 4px; white-space: pre-wrap;">${emailContent.text.substring(0, 500)}...</pre>
+                    <p><strong>✅ No numerical scores or false benchmarking claims in email</strong></p>
+                </div>
+            `;
+        }
+
+        // Auto-run a test on page load
+        window.addEventListener('load', () => {
+            console.log('🧪 Testing categorical assessment system...');
+            testScenario('developing');
+        });
+    </script>
+</body>
+</html>

@@ -18,21 +18,31 @@ class ResultsExperience {
     generatePersonalizedResults() {
         // Personalize headline with company name
         const headline = document.getElementById('results-headline');
-        headline.textContent = `${this.companyName}'s Financial Health Analysis`;
+        headline.textContent = `${this.companyName}'s Financial Assessment`;
 
-        // Generate overall score and classification
-        const overallScore = this.calculateOverallScore();
-        const classification = this.getScoreClassification(overallScore);
+        // Generate overall category and classification
+        const category = this.calculateOverallCategory();
         
-        document.getElementById('overall-score').textContent = overallScore;
+        // Update category badge
+        const categoryBadge = document.getElementById('category-badge');
+        const categoryLabel = document.getElementById('category-label');
+        const categorySubtitle = document.getElementById('category-subtitle');
         
-        // Update score circle styling
-        const scoreCircle = document.getElementById('score-circle');
-        scoreCircle.className = `score-circle ${classification.class}`;
+        categoryBadge.className = `category-badge ${category.class}`;
+        categoryLabel.textContent = category.label;
+        
+        // Set category-specific subtitles
+        const subtitles = {
+            'strong': 'Established Foundation',
+            'developing': 'Solid Performance', 
+            'growing': 'Building Momentum',
+            'emerging': 'Early Growth Stage'
+        };
+        categorySubtitle.textContent = subtitles[category.class] || 'Financial Assessment';
 
         // Generate personalized subtitle with positive framing
         const subtitle = document.getElementById('results-subtitle');
-        subtitle.textContent = this.generatePositiveSubtitle(classification);
+        subtitle.textContent = this.generatePositiveSubtitle(category);
 
         // Generate specific insights
         this.generateSpecificInsights();
@@ -44,271 +54,301 @@ class ResultsExperience {
         this.generateUrgencyElements();
     }
 
-    calculateOverallScore() {
-        // Enhanced scoring with positive bias for conversion
-        let baseScore = 45; // Start higher to avoid negative sentiment
-        
+    calculateOverallCategory() {
+        // Categorical assessment based on business maturity and financial practices
         const responses = this.responses;
-
-        // Revenue stage scoring (more generous)
-        const revenueScores = {
-            'pre_revenue': 15,
-            '0_100k': 25,
-            '100k_500k': 35,
-            '500k_1m': 50,
-            '1m_5m': 70,
-            '5m_plus': 85
+        let categoryPoints = 0;
+        
+        // Revenue stage assessment (most important factor)
+        const revenuePoints = {
+            'pre_revenue': 0,
+            '0_100k': 1,
+            '100k_500k': 2, 
+            '500k_1m': 3,
+            '1m_5m': 4,
+            '5m_plus': 4
         };
-        baseScore += revenueScores[responses.revenue_range] || 0;
+        categoryPoints += revenuePoints[responses.revenue_range] || 0;
 
-        // Business stage bonus
-        const stageBonus = {
-            'pre_launch': 5,
-            'early_stage': 10,
-            'growth_stage': 15,
-            'established': 20
+        // Financial tracking sophistication
+        const marginPoints = {
+            'below_30': 0,
+            '30_50': 1,
+            '50_70': 2,
+            '70_plus': 3,
+            'unsure': 0
         };
-        baseScore += stageBonus[responses.business_stage] || 0;
+        categoryPoints += marginPoints[responses.gross_margins] || 0;
 
-        // Margin impact (positive framing)
-        const marginBonus = {
-            'below_30': -10,
-            '30_50': 5,
-            '50_70': 15,
-            '70_plus': 25,
-            'unsure': 0 // Neutral, not negative
+        // Cash management maturity
+        const runwayPoints = {
+            'less_3_months': 0,
+            '3_6_months': 1,
+            '6_12_months': 2,
+            '12_plus_months': 3,
+            'profitable': 3
         };
-        baseScore += marginBonus[responses.gross_margins] || 0;
+        categoryPoints += runwayPoints[responses.cash_runway] || 0;
 
-        // Cash runway (security scoring)
-        const runwayBonus = {
-            'less_3_months': -5, // Less harsh than before
-            '3_6_months': 5,
-            '6_12_months': 15,
-            '12_plus_months': 25,
-            'profitable': 30
+        // Business stage maturity
+        const stagePoints = {
+            'pre_launch': 0,
+            'early_stage': 1,
+            'growth_stage': 2,
+            'established': 3
         };
-        baseScore += runwayBonus[responses.cash_runway] || 0;
+        categoryPoints += stagePoints[responses.business_stage] || 0;
 
-        // Growth goal alignment bonus
-        const goalBonus = {
-            'profitability': 10,
-            'scale_revenue': 15,
-            'market_expansion': 12,
-            'product_diversification': 8,
-            'exit_preparation': 20
-        };
-        baseScore += goalBonus[responses.growth_goals] || 0;
-
-        // Ensure score is in optimal range for conversion psychology
-        return Math.max(35, Math.min(92, Math.round(baseScore))); // Never below 35, max 92 for credibility
-    }
-
-    getScoreClassification(score) {
-        if (score >= 75) {
-            return {
-                class: 'excellent',
-                label: 'Excellent Position',
-                sentiment: 'strong'
-            };
-        } else if (score >= 55) {
-            return {
-                class: 'good',
-                label: 'Strong Foundation',
-                sentiment: 'positive'
-            };
+        // Determine category (0-12 point scale)
+        if (categoryPoints >= 10) {
+            return { class: 'strong', label: 'Strong' };
+        } else if (categoryPoints >= 7) {
+            return { class: 'developing', label: 'Developing' };
+        } else if (categoryPoints >= 4) {
+            return { class: 'growing', label: 'Growing' };
         } else {
-            return {
-                class: 'needs-improvement',
-                label: 'Growth Opportunity',
-                sentiment: 'opportunity' // Never "poor" or "bad"
-            };
+            return { class: 'emerging', label: 'Emerging' };
         }
     }
 
-    generatePositiveSubtitle(classification) {
-        const companyName = this.companyName;
-        
-        const subtitles = {
-            'strong': [
-                `${companyName} is positioned for accelerated growth with targeted optimizations.`,
-                `Strong fundamentals detected. Ready to unlock the next level of performance.`,
-                `${companyName} has excellent potential for market leadership expansion.`
-            ],
-            'positive': [
-                `${companyName} shows solid performance with clear paths to optimization.`,
-                `Good foundation in place. Several high-impact improvements identified.`,
-                `${companyName} is well-positioned to outperform industry benchmarks.`
-            ],
-            'opportunity': [
-                `${companyName} has significant untapped potential for rapid improvement.`,
-                `Multiple optimization opportunities identified for accelerated growth.`,
-                `${companyName} is positioned for dramatic performance improvements.`
-            ]
+    getCategoryRecommendations(category) {
+        const recommendations = {
+            'strong': {
+                priorities: [
+                    'Consider advanced financial modeling for growth planning',
+                    'Explore strategic investments in market expansion', 
+                    'Implement advanced KPI dashboards for optimization',
+                    'Research acquisition opportunities or strategic partnerships'
+                ],
+                subtitle: 'positioned for accelerated growth with targeted optimizations'
+            },
+            'developing': {
+                priorities: [
+                    'Priority: Set up monthly cash flow tracking systems',
+                    'Implement gross margin analysis by product line',
+                    'Establish formal budgeting and variance reporting',
+                    'Consider fractional CFO support for strategic planning'
+                ],
+                subtitle: 'shows solid performance with clear paths to optimization'
+            },
+            'growing': {
+                priorities: [
+                    'Focus: Implement unit economics measurement across products',
+                    'Set up weekly financial review meetings',
+                    'Establish customer acquisition cost (CAC) tracking', 
+                    'Create 90-day rolling cash flow forecasts'
+                ],
+                subtitle: 'has significant opportunities for rapid improvement'
+            },
+            'emerging': {
+                priorities: [
+                    'Start here: Establish basic accounting systems (QuickBooks/Xero)',
+                    'Set up separate business banking and expense tracking',
+                    'Implement basic inventory management if applicable',
+                    'Create simple monthly P&L review process'
+                ],
+                subtitle: 'has tremendous potential with focused foundation-building'
+            }
         };
+        
+        return recommendations[category.class] || recommendations['developing'];
+    }
 
-        const options = subtitles[classification.sentiment] || subtitles['positive'];
-        return options[Math.floor(Math.random() * options.length)];
+    generatePositiveSubtitle(category) {
+        const companyName = this.companyName;
+        const categoryRecs = this.getCategoryRecommendations(category);
+        
+        return `${companyName} ${categoryRecs.subtitle}. Here's your personalized roadmap.`;
     }
 
     generateSpecificInsights() {
         const responses = this.responses;
         
         // Financial Health Insights
-        const financialScore = this.calculateComponentScore('financial', 60);
-        document.getElementById('financial-score').textContent = `${financialScore}/100`;
+        const financialCategory = this.calculateComponentCategory('financial', responses);
+        document.getElementById('financial-category').textContent = financialCategory.label;
         
-        const financialInsights = this.getFinancialInsights(responses, financialScore);
+        const financialInsights = this.getFinancialInsights(responses, financialCategory);
         document.getElementById('financial-insight').textContent = financialInsights.text;
         document.getElementById('financial-opportunity').textContent = financialInsights.opportunity;
 
         // Growth Potential
-        const growthScore = this.calculateComponentScore('growth', 65);
-        document.getElementById('growth-score').textContent = `${growthScore}/100`;
+        const growthCategory = this.calculateComponentCategory('growth', responses);
+        document.getElementById('growth-category').textContent = growthCategory.label;
         
-        const growthInsights = this.getGrowthInsights(responses, growthScore);
+        const growthInsights = this.getGrowthInsights(responses, growthCategory);
         document.getElementById('growth-insight').textContent = growthInsights.text;
         document.getElementById('growth-opportunity').textContent = growthInsights.opportunity;
 
         // Operational Efficiency
-        const efficiencyScore = this.calculateComponentScore('efficiency', 58);
-        document.getElementById('efficiency-score').textContent = `${efficiencyScore}/100`;
+        const efficiencyCategory = this.calculateComponentCategory('efficiency', responses);
+        document.getElementById('efficiency-category').textContent = efficiencyCategory.label;
         
-        const efficiencyInsights = this.getEfficiencyInsights(responses, efficiencyScore);
+        const efficiencyInsights = this.getEfficiencyInsights(responses, efficiencyCategory);
         document.getElementById('efficiency-insight').textContent = efficiencyInsights.text;
         document.getElementById('efficiency-opportunity').textContent = efficiencyInsights.opportunity;
     }
 
-    calculateComponentScore(component, baseScore) {
-        // Add some variation but keep in conversion-friendly range
-        const variation = Math.floor(Math.random() * 25) - 12; // -12 to +12
-        return Math.max(40, Math.min(88, baseScore + variation));
+    calculateComponentCategory(component, responses) {
+        // Determine component category based on specific responses
+        let points = 0;
+        
+        if (component === 'financial') {
+            // Based on margins, revenue, cash position
+            if (responses.gross_margins === '70_plus') points += 3;
+            else if (responses.gross_margins === '50_70') points += 2;
+            else if (responses.gross_margins === '30_50') points += 1;
+            
+            if (responses.cash_runway === 'profitable') points += 3;
+            else if (responses.cash_runway === '12_plus_months') points += 2;
+            else if (responses.cash_runway === '6_12_months') points += 1;
+            
+        } else if (component === 'growth') {
+            // Based on revenue stage and growth goals
+            if (responses.revenue_range === '5m_plus' || responses.revenue_range === '1m_5m') points += 3;
+            else if (responses.revenue_range === '500k_1m') points += 2;
+            else if (responses.revenue_range === '100k_500k') points += 1;
+            
+            if (responses.growth_goals === 'scale_revenue' || responses.growth_goals === 'market_expansion') points += 2;
+            else if (responses.growth_goals === 'exit_preparation') points += 1;
+            
+        } else if (component === 'efficiency') {
+            // Based on stage and operational maturity
+            if (responses.business_stage === 'established') points += 3;
+            else if (responses.business_stage === 'growth_stage') points += 2;
+            else if (responses.business_stage === 'early_stage') points += 1;
+            
+            if (responses.customer_acquisition !== 'high_cac') points += 2;
+        }
+        
+        // Convert points to category (0-6 scale for components)
+        if (points >= 5) return { class: 'strong', label: 'Strong' };
+        else if (points >= 3) return { class: 'developing', label: 'Developing' };
+        else if (points >= 1) return { class: 'growing', label: 'Growing' };
+        else return { class: 'emerging', label: 'Emerging' };
     }
 
-    getFinancialInsights(responses, score) {
+    getFinancialInsights(responses, category) {
         const marginLevel = responses.gross_margins;
         const runway = responses.cash_runway;
 
-        if (score >= 70) {
+        if (category.class === 'strong') {
             return {
                 text: "Strong unit economics with healthy margins and cash position.",
                 opportunity: "💰 Premium pricing opportunity"
             };
-        } else if (score >= 50) {
+        } else if (category.class === 'developing') {
             return {
                 text: "Solid financial foundation with room for margin optimization.",
                 opportunity: "📊 Margin improvement identified"
             };
+        } else if (category.class === 'growing') {
+            return {
+                text: "Building financial systems with clear improvement opportunities.",
+                opportunity: "⚡ Quick financial wins available"
+            };
         } else {
             return {
-                text: "Key opportunities to strengthen financial performance rapidly.",
-                opportunity: "🚀 High-impact improvements available"
+                text: "Foundational financial systems need development for growth.",
+                opportunity: "🏗️ Build strong financial base"
             };
         }
     }
 
-    getGrowthInsights(responses, score) {
+    getGrowthInsights(responses, category) {
         const channel = responses.primary_channel;
         const stage = responses.business_stage;
 
-        if (score >= 70) {
+        if (category.class === 'strong') {
             return {
                 text: "Excellent growth trajectory with scalable acquisition channels.",
                 opportunity: "🎯 Scale acceleration ready"
             };
-        } else if (score >= 50) {
+        } else if (category.class === 'developing') {
             return {
                 text: "Good growth potential with optimization opportunities identified.",
                 opportunity: "📈 Growth lever activation"
             };
+        } else if (category.class === 'growing') {
+            return {
+                text: "Strong growth momentum with channel optimization potential.",
+                opportunity: "🚀 Growth acceleration possible"
+            };
         } else {
             return {
-                text: "Significant growth opportunities through channel optimization.",
-                opportunity: "🔥 Breakthrough growth possible"
+                text: "Early growth stage with significant scaling opportunities ahead.",
+                opportunity: "🌱 Growth foundation needed"
             };
         }
     }
 
-    getEfficiencyInsights(responses, score) {
+    getEfficiencyInsights(responses, category) {
         const challenge = responses.customer_acquisition;
         const painPoint = responses.biggest_pain_point;
 
-        if (score >= 70) {
+        if (category.class === 'strong') {
             return {
                 text: "Efficient operations with strong systems and processes.",
                 opportunity: "⚡ Automation opportunities"
             };
-        } else if (score >= 50) {
+        } else if (category.class === 'developing') {
             return {
                 text: "Solid operational foundation ready for scaling improvements.",
                 opportunity: "🎛️ Process optimization ready"
             };
+        } else if (category.class === 'growing') {
+            return {
+                text: "Operational systems developing with efficiency opportunities.",
+                opportunity: "⚙️ System improvements available"
+            };
         } else {
             return {
-                text: "Major efficiency gains available through targeted improvements.",
-                opportunity: "🚀 Quick wins identified"
+                text: "Operational foundations need development for efficient scaling.",
+                opportunity: "🔧 Build operational systems"
             };
         }
     }
 
     generateRecommendations() {
-        const recommendations = [];
-        const responses = this.responses;
+        const category = this.calculateOverallCategory();
+        const categoryRecs = this.getCategoryRecommendations(category);
+        
+        // Convert priorities to recommendation format
+        const recommendations = categoryRecs.priorities.map((priority, index) => {
+            const icons = ['🎯', '📊', '💡', '🚀'];
+            const titles = priority.includes(':') ? priority.split(':')[0] : `Priority ${index + 1}`;
+            const description = priority.includes(':') ? priority.split(':')[1].trim() : priority;
+            
+            return {
+                icon: icons[index % icons.length],
+                title: titles,
+                description: description
+            };
+        });
 
-        // Generate honest, actionable recommendations based on responses
-        if (responses.gross_margins === 'below_30' || responses.gross_margins === 'unsure') {
+        // Add category-specific urgent recommendations based on responses
+        const responses = this.responses;
+        
+        if (responses.cash_runway === 'less_3_months') {
+            recommendations.unshift({
+                icon: '🚨',
+                title: 'URGENT: Cash Flow Priority',
+                description: 'With less than 3 months runway, immediate focus on revenue acceleration and expense reduction is critical.'
+            });
+        }
+
+        if (responses.gross_margins === 'below_30') {
             recommendations.push({
                 icon: '💰',
-                title: 'Focus on Margin Analysis',
-                description: 'Understanding and improving your gross margins is critical for sustainable growth. Consider reviewing your cost structure and pricing strategy.'
-            });
-        }
-
-        if (responses.cash_runway === 'less_3_months' || responses.cash_runway === '3_6_months') {
-            recommendations.push({
-                icon: '⏰',
-                title: 'Prioritize Cash Flow',
-                description: 'With limited runway, focus on immediate revenue-generating activities and consider ways to extend your cash position.'
-            });
-        }
-
-        if (responses.customer_acquisition === 'high_cac') {
-            recommendations.push({
-                icon: '🎯',
-                title: 'Optimize Customer Acquisition',
-                description: 'High acquisition costs can limit growth. Test different channels, improve conversion rates, and focus on customer lifetime value.'
-            });
-        }
-
-        if (responses.primary_channel === 'mixed' || responses.business_stage === 'early_stage') {
-            recommendations.push({
-                icon: '📊',
-                title: 'Channel Performance Analysis',
-                description: 'Track and compare the performance of your different sales channels to focus resources on the most profitable ones.'
-            });
-        }
-
-        if (responses.biggest_pain_point === 'marketing_roi') {
-            recommendations.push({
-                icon: '📈',
-                title: 'Marketing Attribution',
-                description: 'Implement better tracking to understand which marketing activities actually drive revenue. Focus on measurable campaigns.'
-            });
-        }
-
-        // Always include at least one general recommendation
-        if (recommendations.length === 0) {
-            recommendations.push({
-                icon: '🚀',
-                title: 'Foundation Strengthening',
-                description: 'Focus on building strong unit economics and sustainable growth processes as you scale your business.'
+                title: 'Critical Margin Review',
+                description: 'Low gross margins threaten sustainability. Immediate cost analysis and pricing review needed.'
             });
         }
 
         // Populate the recommendations HTML
         const recommendationsList = document.getElementById('recommendations-list');
         if (recommendationsList) {
-            recommendationsList.innerHTML = recommendations.map(rec => `
+            recommendationsList.innerHTML = recommendations.slice(0, 4).map(rec => `
                 <div class="flex items-start gap-4 p-4 bg-white border border-gray-200 rounded-lg">
                     <div class="text-2xl">${rec.icon}</div>
                     <div>
@@ -335,21 +375,47 @@ class ResultsExperience {
     }
 
     animateScoreReveal() {
-        // Animate score counting up for psychological impact
-        const scoreElement = document.getElementById('overall-score');
-        const targetScore = parseInt(scoreElement.textContent);
+        // Animate category badge appearance with premium effect
+        const categoryBadge = document.getElementById('category-badge');
+        const categoryLabel = document.getElementById('category-label');
+        const categorySubtitle = document.getElementById('category-subtitle');
         
-        let currentScore = 0;
-        const increment = Math.ceil(targetScore / 30); // 30 steps
+        // Start with opacity 0 and scale down
+        categoryBadge.style.opacity = '0';
+        categoryBadge.style.transform = 'scale(0.8) rotateY(-15deg)';
+        categoryBadge.style.filter = 'blur(4px)';
         
-        const countAnimation = setInterval(() => {
-            currentScore += increment;
-            if (currentScore >= targetScore) {
-                currentScore = targetScore;
-                clearInterval(countAnimation);
+        // Animate to full visibility with sophisticated timing
+        setTimeout(() => {
+            categoryBadge.style.transition = 'all 1.2s cubic-bezier(0.34, 1.56, 0.64, 1)';
+            categoryBadge.style.opacity = '1';
+            categoryBadge.style.transform = 'scale(1) rotateY(0deg)';
+            categoryBadge.style.filter = 'blur(0px)';
+        }, 500);
+        
+        // Animate text content separately for premium effect
+        setTimeout(() => {
+            if (categoryLabel) {
+                categoryLabel.style.transition = 'all 0.6s ease-out';
+                categoryLabel.style.transform = 'translateY(0px)';
+                categoryLabel.style.opacity = '1';
             }
-            scoreElement.textContent = currentScore;
-        }, 50);
+            if (categorySubtitle) {
+                categorySubtitle.style.transition = 'all 0.8s ease-out';
+                categorySubtitle.style.transform = 'translateY(0px)';
+                categorySubtitle.style.opacity = '1';
+            }
+        }, 800);
+        
+        // Initialize text positioning
+        if (categoryLabel) {
+            categoryLabel.style.transform = 'translateY(20px)';
+            categoryLabel.style.opacity = '0';
+        }
+        if (categorySubtitle) {
+            categorySubtitle.style.transform = 'translateY(20px)';
+            categorySubtitle.style.opacity = '0';
+        }
     }
 
     setupEmailCapture() {
@@ -363,6 +429,15 @@ class ResultsExperience {
             
             // Store email
             localStorage.setItem('userEmail', email);
+            
+            // Track email submission
+            if (typeof gtag !== 'undefined') {
+                gtag('event', 'email_submit', {
+                    event_category: 'conversion',
+                    event_label: 'Results Email Capture',
+                    value: 1
+                });
+            }
             
             // Update button to show success
             button.textContent = 'Sending Your Analysis...';
@@ -391,12 +466,15 @@ class ResultsExperience {
     }
 
     async triggerFollowUpSequence(email) {
+        // Calculate category for email
+        const overallCategory = this.calculateOverallCategory();
+        
         // Store data for follow-up system
         const followUpData = {
             email: email,
             timestamp: new Date().toISOString(),
             responses: this.responses,
-            score: this.score,
+            category: overallCategory,
             companyName: this.companyName,
             stage: 'analysis_requested',
             databaseId: localStorage.getItem('diagnosticId')
@@ -411,7 +489,8 @@ class ResultsExperience {
                     company_name: this.companyName,
                     founder_name: this.responses.founder_name || 'there',
                     email: email,
-                    score: this.score,
+                    category: overallCategory,
+                    recommendations: this.getCategoryRecommendations(overallCategory),
                     databaseId: followUpData.databaseId
                 });
 
@@ -506,7 +585,7 @@ class ResultsExperience {
                             <div class="w-6 h-6 bg-blue-600 text-white rounded-full flex items-center justify-center text-sm font-bold mt-0.5">2</div>
                             <div>
                                 <div class="font-semibold">Weekly Insights (Optional)</div>
-                                <div class="text-sm text-gray-600">Industry benchmarks and optimization tips</div>
+                                <div class="text-sm text-gray-600">Strategic insights and optimization tips</div>
                             </div>
                         </div>
                         <div class="flex items-start gap-3">

@@ -25,7 +25,7 @@ class PremiumDiagnostic {
             {
                 id: 'industry_focus',
                 title: 'What\'s your primary focus?',
-                subtitle: 'This helps us benchmark against similar companies',
+                subtitle: 'This helps us customize your recommendations',
                 type: 'single_choice',
                 options: [
                     { value: 'supplements', label: 'Supplements & Nutrition', description: 'Vitamins, protein, wellness supplements' },
@@ -50,7 +50,7 @@ class PremiumDiagnostic {
             {
                 id: 'revenue_range',
                 title: 'What\'s your current annual revenue?',
-                subtitle: 'We use this for industry benchmarking',
+                subtitle: 'This helps us tailor our recommendations',
                 type: 'single_choice',
                 options: [
                     { value: 'pre_revenue', label: 'Pre-Revenue', description: 'Still in development phase' },
@@ -367,6 +367,15 @@ class PremiumDiagnostic {
             // Store database ID if available
             if (savedResponse) {
                 localStorage.setItem('diagnosticId', savedResponse.id);
+            }
+
+            // Track diagnostic completion
+            if (typeof gtag !== 'undefined') {
+                gtag('event', 'diagnostic_complete', {
+                    event_category: 'engagement',
+                    event_label: 'Completed Financial Diagnostic',
+                    value: 1
+                });
             }
 
             // Redirect to results
