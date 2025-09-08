@@ -319,33 +319,52 @@
         }
         
         .hero-headline {
-            font-size: 72px;
-            line-height: 0.8;
-            letter-spacing: -0.03em;
-            font-weight: 900;
+            font-size: 80px !important;
+            line-height: 0.85 !important;
+            letter-spacing: -0.04em !important;
+            font-weight: 900 !important;
             text-rendering: optimizeLegibility;
             text-shadow: var(--editorial-shadow);
         }
         
+        .section-headline {
+            font-size: 48px !important;
+            font-weight: 800 !important;
+            letter-spacing: -0.02em !important;
+            line-height: 1.1 !important;
+        }
+        
+        .card-headline {
+            font-size: 32px !important;
+            font-weight: 700 !important;
+            letter-spacing: -0.01em !important;
+        }
+        
+        .body-large {
+            font-size: 20px !important;
+            font-weight: 400 !important;
+            line-height: 1.5 !important;
+        }
+        
         @media (max-width: 1280px) {
             .hero-headline {
-                font-size: 60px;
-                line-height: 0.85;
+                font-size: 68px !important;
+                line-height: 0.88 !important;
             }
         }
         
         @media (max-width: 1024px) {
             .hero-headline {
-                font-size: 52px;
-                line-height: 0.9;
+                font-size: 58px !important;
+                line-height: 0.9 !important;
             }
         }
         
         @media (max-width: 768px) {
             .hero-headline {
-                font-size: 40px;
-                letter-spacing: -0.025em;
-                line-height: 0.95;
+                font-size: 44px !important;
+                letter-spacing: -0.025em !important;
+                line-height: 0.95 !important;
             }
         }
         
@@ -675,41 +694,41 @@
                         <!-- Health & Wellness Metrics Grid -->
                         <div class="grid grid-cols-2 gap-2 mb-3">
                             
-                            <!-- Subscription LTV -->
+                            <!-- Customer Lifetime Value -->
                             <div class="metric-card">
-                                <div class="text-xs text-editorial-gray mb-1">Subscription LTV</div>
-                                <div class="financial-number text-base font-bold text-deep-charcoal">$184.50</div>
-                                <div class="text-xs text-success-green">+22.1% MoM</div>
+                                <div class="text-xs text-editorial-gray mb-1">Customer LTV</div>
+                                <div class="financial-number text-base font-bold text-deep-charcoal">Tracking</div>
+                                <div class="text-xs text-success-green">Optimize</div>
                                 <div class="progress-bar mt-2">
-                                    <div class="progress-fill bg-success-green" style="width: 84%;"></div>
+                                    <div class="progress-fill bg-success-green" style="width: 75%;"></div>
                                 </div>
                             </div>
                             
-                            <!-- Inventory Turns -->
+                            <!-- Efficiency Metrics -->
                             <div class="metric-card">
-                                <div class="text-xs text-editorial-gray mb-1">Inventory Turns</div>
-                                <div class="financial-number text-base font-bold text-deep-charcoal">8.2x</div>
-                                <div class="text-xs text-success-green">Annual</div>
+                                <div class="text-xs text-editorial-gray mb-1">Efficiency</div>
+                                <div class="financial-number text-base font-bold text-deep-charcoal">Monitor</div>
+                                <div class="text-xs text-success-green">Improve</div>
                                 <div class="progress-bar mt-2">
                                     <div class="progress-fill bg-gradient-to-r from-success-green to-signal-blue" style="width: 78%;"></div>
                                 </div>
                             </div>
                             
-                            <!-- Customer CAC -->
+                            <!-- Customer Acquisition -->
                             <div class="metric-card">
-                                <div class="text-xs text-editorial-gray mb-1">Customer CAC</div>
-                                <div class="financial-number text-base font-bold text-deep-charcoal">$47</div>
-                                <div class="text-xs text-success-green">-12.4% MoM</div>
+                                <div class="text-xs text-editorial-gray mb-1">Acquisition</div>
+                                <div class="financial-number text-base font-bold text-deep-charcoal">Analyze</div>
+                                <div class="text-xs text-success-green">Optimize</div>
                                 <div class="progress-bar mt-2">
                                     <div class="progress-fill bg-success-green" style="width: 89%;"></div>
                                 </div>
                             </div>
                             
-                            <!-- Retention Rate -->
+                            <!-- Customer Retention -->
                             <div class="metric-card">
-                                <div class="text-xs text-editorial-gray mb-1">Retention Rate</div>
-                                <div class="financial-number text-base font-bold text-deep-charcoal">87.3%</div>
-                                <div class="text-xs text-success-green">3-month</div>
+                                <div class="text-xs text-editorial-gray mb-1">Retention</div>
+                                <div class="financial-number text-base font-bold text-deep-charcoal">Track</div>
+                                <div class="text-xs text-success-green">Improve</div>
                                 <div class="progress-bar mt-2">
                                     <div class="progress-fill bg-gradient-to-r from-wellness-purple to-success-green" style="width: 87%;"></div>
                                 </div>
@@ -719,8 +738,8 @@
                         <!-- Monthly Revenue Chart -->
                         <div class="bg-gray-50 rounded-xl p-3">
                             <div class="flex items-center justify-between mb-2">
-                                <div class="text-xs font-semibold text-deep-charcoal">Monthly Revenue</div>
-                                <div class="financial-number text-wellness-purple font-bold text-sm">$847K</div>
+                                <div class="text-xs font-semibold text-deep-charcoal">Growth Trends</div>
+                                <div class="financial-number text-wellness-purple font-bold text-sm">Analytics</div>
                             </div>
                             <div class="flex items-end gap-1 h-12">
                                 <div class="chart-bar" style="width: 6px; height: 25%;"></div>
@@ -739,14 +758,14 @@
                         </div>
                     </div>
                     
-                    <!-- Floating Health & Wellness Brand Cards -->
+                    <!-- Floating Wellness Category Cards -->
                     <div class="absolute -left-6 top-12 floating-element hidden lg:block" style="animation-delay: -1s;">
                         <div class="bg-white rounded-xl p-2.5 shadow-lg border border-gray-100">
                             <div class="flex items-center gap-2">
-                                <div class="w-7 h-7 bg-gradient-to-br from-green-400 to-emerald-500 rounded-full flex items-center justify-center text-white font-bold text-xs">PW</div>
+                                <div class="w-7 h-7 bg-gradient-to-br from-green-400 to-emerald-500 rounded-full flex items-center justify-center text-white font-bold text-xs">SW</div>
                                 <div>
-                                    <div class="font-semibold text-xs">Peak Wellness</div>
-                                    <div class="text-xs text-editorial-gray">Supplements</div>
+                                    <div class="font-semibold text-xs">Supplements</div>
+                                    <div class="text-xs text-editorial-gray">Category</div>
                                 </div>
                             </div>
                         </div>
@@ -754,19 +773,19 @@
                     
                     <div class="absolute -right-4 bottom-6 floating-element hidden lg:block" style="animation-delay: -3s;">
                         <div class="bg-white rounded-xl p-2.5 shadow-lg border border-gray-100">
-                            <div class="text-xs text-editorial-gray mb-1">Gross Margin</div>
-                            <div class="financial-number text-sm font-bold text-deep-charcoal">72.4%</div>
-                            <div class="text-xs text-success-green">Above target</div>
+                            <div class="text-xs text-editorial-gray mb-1">Margin Focus</div>
+                            <div class="financial-number text-sm font-bold text-deep-charcoal">Optimize</div>
+                            <div class="text-xs text-success-green">Target growth</div>
                         </div>
                     </div>
                     
                     <div class="absolute -left-3 bottom-16 floating-element hidden lg:block" style="animation-delay: -2s;">
                         <div class="bg-white rounded-xl p-2.5 shadow-lg border border-gray-100">
                             <div class="flex items-center gap-2">
-                                <div class="w-7 h-7 bg-gradient-to-br from-purple-400 to-violet-500 rounded-full flex items-center justify-center text-white font-bold text-xs">VG</div>
+                                <div class="w-7 h-7 bg-gradient-to-br from-purple-400 to-violet-500 rounded-full flex items-center justify-center text-white font-bold text-xs">FF</div>
                                 <div>
-                                    <div class="font-semibold text-xs">Vital Greens</div>
-                                    <div class="text-xs text-editorial-gray">Functional Foods</div>
+                                    <div class="font-semibold text-xs">Foods</div>
+                                    <div class="text-xs text-editorial-gray">Functional</div>
                                 </div>
                             </div>
                         </div>
@@ -778,79 +797,79 @@
     </section>
 
     <!-- Features Section -->
-    <section id="features" class="py-24 bg-gradient-to-b from-cream to-white">
+    <section id="features" class="py-16 bg-gradient-to-b from-cream to-white">
         <div class="max-w-7xl mx-auto px-6">
             <div class="text-center mb-16">
-                <h2 class="text-5xl font-black text-deep-charcoal mb-6">What You Get</h2>
+                <h2 class="section-headline text-deep-charcoal mb-6">What You Get</h2>
                 <p class="text-xl text-editorial-gray max-w-3xl mx-auto">Honest financial health assessment based on proven best practices, not industry data we don't have.</p>
             </div>
             
             <!-- Feature Grid -->
-            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
                 
                 <!-- Feature 1: Educational Assessment -->
-                <div class="bg-white rounded-2xl p-8 shadow-lg border border-gray-100 hover:shadow-xl transition-all duration-300 hover:transform hover:-translate-y-2">
-                    <div class="w-12 h-12 bg-gradient-to-br from-wellness-purple to-signal-blue rounded-xl flex items-center justify-center mb-6">
+                <div class="bg-white rounded-2xl p-6 shadow-lg border border-gray-100 hover:shadow-xl transition-all duration-300 hover:transform hover:-translate-y-2">
+                    <div class="w-12 h-12 bg-gradient-to-br from-wellness-purple to-signal-blue rounded-xl flex items-center justify-center mb-4">
                         <svg width="24" height="24" fill="white" viewBox="0 0 24 24">
                             <path d="M12 2L2 7V10C2 16 6 20.9 12 22C18 20.9 22 16 22 10V7L12 2ZM12 8C13.1 8 14 8.9 14 10S13.1 12 12 12S10 11.1 10 10S10.9 8 12 8ZM12 14C13.5 14 16 15.2 16 16.5V17H8V16.5C8 15.2 10.5 14 12 14Z"/>
                         </svg>
                     </div>
-                    <h3 class="text-2xl font-bold text-deep-charcoal mb-4">Educational Assessment</h3>
+                    <h3 class="card-headline text-deep-charcoal mb-4">Educational Assessment</h3>
                     <p class="text-editorial-gray leading-relaxed">Learn about your financial health through proven frameworks and methodologies used by successful CPG brands.</p>
                 </div>
                 
                 <!-- Feature 2: Categorical Results -->
-                <div class="bg-white rounded-2xl p-8 shadow-lg border border-gray-100 hover:shadow-xl transition-all duration-300 hover:transform hover:-translate-y-2">
+                <div class="bg-white rounded-2xl p-6 shadow-lg border border-gray-100 hover:shadow-xl transition-all duration-300 hover:transform hover:-translate-y-2">
                     <div class="w-12 h-12 bg-gradient-to-br from-success-green to-emerald-600 rounded-xl flex items-center justify-center mb-6">
                         <svg width="24" height="24" fill="white" viewBox="0 0 24 24">
                             <path d="M9,5A4,4 0 0,1 13,9A4,4 0 0,1 9,13A4,4 0 0,1 5,9A4,4 0 0,1 9,5M9,15C11.67,15 17,16.34 17,19V21H1V19C1,16.34 6.33,15 9,15M16.76,5.36C18.78,7.56 18.78,10.61 16.76,12.63L15.08,10.94C15.92,9.76 15.92,8.23 15.08,7.05L16.76,5.36M20.07,2C24,6.05 23.97,12.11 20.07,16.07L18.44,14.44C21.21,11.19 21.21,6.65 18.44,3.63L20.07,2Z"/>
                         </svg>
                     </div>
-                    <h3 class="text-2xl font-bold text-deep-charcoal mb-4">Categorical Results</h3>
+                    <h3 class="card-headline text-deep-charcoal mb-4">Categorical Results</h3>
                     <p class="text-editorial-gray leading-relaxed">Get clear categories (Strong/Developing/Growing/Emerging) instead of fake scores or misleading benchmarks.</p>
                 </div>
                 
                 <!-- Feature 3: Specific Recommendations -->
-                <div class="bg-white rounded-2xl p-8 shadow-lg border border-gray-100 hover:shadow-xl transition-all duration-300 hover:transform hover:-translate-y-2">
+                <div class="bg-white rounded-2xl p-6 shadow-lg border border-gray-100 hover:shadow-xl transition-all duration-300 hover:transform hover:-translate-y-2">
                     <div class="w-12 h-12 bg-gradient-to-br from-signal-blue to-wellness-purple rounded-xl flex items-center justify-center mb-6">
                         <svg width="24" height="24" fill="white" viewBox="0 0 24 24">
                             <path d="M12,2A10,10 0 0,0 2,12A10,10 0 0,0 12,22A10,10 0 0,0 22,12A10,10 0 0,0 12,2M11,16.5L6.5,12L7.91,10.59L11,13.67L16.59,8.09L18,9.5L11,16.5Z"/>
                         </svg>
                     </div>
-                    <h3 class="text-2xl font-bold text-deep-charcoal mb-4">Specific Recommendations</h3>
+                    <h3 class="card-headline text-deep-charcoal mb-4">Specific Recommendations</h3>
                     <p class="text-editorial-gray leading-relaxed">Receive next-step guidance tailored to your business stage with actionable insights you can implement immediately.</p>
                 </div>
                 
                 <!-- Feature 4: Instant Insights -->
-                <div class="bg-white rounded-2xl p-8 shadow-lg border border-gray-100 hover:shadow-xl transition-all duration-300 hover:transform hover:-translate-y-2">
+                <div class="bg-white rounded-2xl p-6 shadow-lg border border-gray-100 hover:shadow-xl transition-all duration-300 hover:transform hover:-translate-y-2">
                     <div class="w-12 h-12 bg-gradient-to-br from-warning-amber to-orange-500 rounded-xl flex items-center justify-center mb-6">
                         <svg width="24" height="24" fill="white" viewBox="0 0 24 24">
                             <path d="M13,9H11V7H13M13,17H11V11H13M12,2A10,10 0 0,0 2,12A10,10 0 0,0 12,22A10,10 0 0,0 22,12A10,10 0 0,0 12,2Z"/>
                         </svg>
                     </div>
-                    <h3 class="text-2xl font-bold text-deep-charcoal mb-4">Instant Insights</h3>
+                    <h3 class="card-headline text-deep-charcoal mb-4">Instant Insights</h3>
                     <p class="text-editorial-gray leading-relaxed">Complete your assessment in 5 minutes and receive results immediately, with no waiting or follow-up required.</p>
                 </div>
                 
                 <!-- Feature 5: No False Claims -->
-                <div class="bg-white rounded-2xl p-8 shadow-lg border border-gray-100 hover:shadow-xl transition-all duration-300 hover:transform hover:-translate-y-2">
+                <div class="bg-white rounded-2xl p-6 shadow-lg border border-gray-100 hover:shadow-xl transition-all duration-300 hover:transform hover:-translate-y-2">
                     <div class="w-12 h-12 bg-gradient-to-br from-deep-charcoal to-gray-700 rounded-xl flex items-center justify-center mb-6">
                         <svg width="24" height="24" fill="white" viewBox="0 0 24 24">
                             <path d="M12,1L3,5V11C3,16.55 6.84,21.74 12,23C17.16,21.74 21,16.55 21,11V5L12,1M12,7C13.4,7 14.8,8.6 14.8,10V11.5C14.8,12.6 14.4,13.5 13.3,13.5H10.7C9.6,13.5 9.2,12.6 9.2,11.5V10C9.2,8.6 10.6,7 12,7M10.5,10V11.5C10.5,12.1 10.7,12.2 10.7,12.2H13.3C13.3,12.2 13.5,12.1 13.5,11.5V10C13.5,9.2 12.8,8.3 12,8.3C11.2,8.3 10.5,9.2 10.5,10Z"/>
                         </svg>
                     </div>
-                    <h3 class="text-2xl font-bold text-deep-charcoal mb-4">No False Claims</h3>
+                    <h3 class="card-headline text-deep-charcoal mb-4">No False Claims</h3>
                     <p class="text-editorial-gray leading-relaxed">Honest guidance based on financial best practices and proven methodologies, not unsupported industry benchmarking.</p>
                 </div>
                 
                 <!-- Feature 6: Professional Quality -->
-                <div class="bg-white rounded-2xl p-8 shadow-lg border border-gray-100 hover:shadow-xl transition-all duration-300 hover:transform hover:-translate-y-2">
+                <div class="bg-white rounded-2xl p-6 shadow-lg border border-gray-100 hover:shadow-xl transition-all duration-300 hover:transform hover:-translate-y-2">
                     <div class="w-12 h-12 bg-gradient-to-br from-emerald-500 to-success-green rounded-xl flex items-center justify-center mb-6">
                         <svg width="24" height="24" fill="white" viewBox="0 0 24 24">
                             <path d="M12,15.5A3.5,3.5 0 0,1 8.5,12A3.5,3.5 0 0,1 12,8.5A3.5,3.5 0 0,1 15.5,12A3.5,3.5 0 0,1 12,15.5M19.43,12.97C19.47,12.65 19.5,12.33 19.5,12C19.5,11.67 19.47,11.34 19.43,11L21.54,9.37C21.73,9.22 21.78,8.95 21.66,8.73L19.66,5.27C19.54,5.05 19.27,4.96 19.05,5.05L16.56,6.05C16.04,5.66 15.5,5.32 14.87,5.07L14.5,2.42C14.46,2.18 14.25,2 14,2H10C9.75,2 9.54,2.18 9.5,2.42L9.13,5.07C8.5,5.32 7.96,5.66 7.44,6.05L4.95,5.05C4.73,4.96 4.46,5.05 4.34,5.27L2.34,8.73C2.22,8.95 2.27,9.22 2.46,9.37L4.57,11C4.53,11.34 4.5,11.67 4.5,12C4.5,12.33 4.53,12.65 4.57,12.97L2.46,14.63C2.27,14.78 2.22,15.05 2.34,15.27L4.34,18.73C4.46,18.95 4.73,19.03 4.95,18.95L7.44,17.94C7.96,18.34 8.5,18.68 9.13,18.93L9.5,21.58C9.54,21.82 9.75,22 10,22H14C14.25,22 14.46,21.82 14.5,21.58L14.87,18.93C15.5,18.68 16.04,18.34 16.56,17.94L19.05,18.95C19.27,19.03 19.54,18.95 19.66,18.73L21.66,15.27C21.78,15.05 21.73,14.78 21.54,14.63L19.43,12.97Z"/>
                         </svg>
                     </div>
-                    <h3 class="text-2xl font-bold text-deep-charcoal mb-4">Professional Quality</h3>
+                    <h3 class="card-headline text-deep-charcoal mb-4">Professional Quality</h3>
                     <p class="text-editorial-gray leading-relaxed">Premium experience with credible, actionable advice that builds trust through transparency and expertise.</p>
                 </div>
             </div>
@@ -858,10 +877,10 @@
     </section>
 
     <!-- Pricing Section -->
-    <section id="pricing" class="py-24 bg-white">
+    <section id="pricing" class="py-16 bg-white">
         <div class="max-w-7xl mx-auto px-6">
             <div class="text-center mb-16">
-                <h2 class="text-5xl font-black text-deep-charcoal mb-6">Simple, Honest Pricing</h2>
+                <h2 class="section-headline text-deep-charcoal mb-6">Simple, Honest Pricing</h2>
                 <p class="text-xl text-editorial-gray">Professional financial assessment at no cost. No hidden fees, no false promises.</p>
             </div>
             
@@ -976,7 +995,7 @@
     </section>
 
     <!-- About/Trust Section -->
-    <section class="py-24 bg-gradient-to-b from-white to-cream">
+    <section class="py-16 bg-gradient-to-b from-white to-cream">
         <div class="max-w-7xl mx-auto px-6">
             <div class="grid lg:grid-cols-2 gap-12 items-center">
                 
@@ -989,25 +1008,25 @@
                         Built for transparency
                     </div>
                     
-                    <h2 class="text-5xl font-black text-deep-charcoal mb-6">Our Approach</h2>
+                    <h2 class="section-headline text-deep-charcoal mb-6">Our Approach</h2>
                     
                     <div class="space-y-6">
                         <div>
-                            <h3 class="text-2xl font-bold text-deep-charcoal mb-3">Methodology Over Marketing</h3>
+                            <h3 class="card-headline text-deep-charcoal mb-3">Methodology Over Marketing</h3>
                             <p class="text-editorial-gray leading-relaxed">
                                 We use established financial frameworks and proven best practices rather than making up scores or claiming to have industry data we don't possess.
                             </p>
                         </div>
                         
                         <div>
-                            <h3 class="text-2xl font-bold text-deep-charcoal mb-3">Educational Focus</h3>
+                            <h3 class="card-headline text-deep-charcoal mb-3">Educational Focus</h3>
                             <p class="text-editorial-gray leading-relaxed">
                                 Every assessment teaches you something valuable about financial health management, helping you make informed decisions for your business.
                             </p>
                         </div>
                         
                         <div>
-                            <h3 class="text-2xl font-bold text-deep-charcoal mb-3">Health & Wellness Expertise</h3>
+                            <h3 class="card-headline text-deep-charcoal mb-3">Health & Wellness Expertise</h3>
                             <p class="text-editorial-gray leading-relaxed">
                                 Built specifically for the unique financial challenges facing health and wellness brands, from inventory management to customer acquisition.
                             </p>

@@ -70,6 +70,35 @@
             --wellness-purple: #8B5CF6;
             --premium-shadow: 0px 16px 64px rgba(0,0,0,0.15);
             --subtle-shadow: 0px 4px 24px rgba(0,0,0,0.08);
+            --editorial-shadow: 2px 4px 12px rgba(0,0,0,0.1);
+        }
+        
+        /* Editorial Typography System */
+        .hero-headline {
+            font-size: 72px !important;
+            font-weight: 900 !important;
+            letter-spacing: -0.03em !important;
+            line-height: 0.9 !important;
+            color: var(--deep-charcoal);
+        }
+
+        .section-headline {
+            font-size: 48px !important;
+            font-weight: 800 !important;
+            letter-spacing: -0.02em !important;
+            line-height: 1.1 !important;
+        }
+
+        .card-headline {
+            font-size: 32px !important;
+            font-weight: 700 !important;
+            letter-spacing: -0.01em !important;
+        }
+
+        .body-large {
+            font-size: 20px !important;
+            font-weight: 400 !important;
+            line-height: 1.5 !important;
         }
         
         body {
@@ -103,41 +132,41 @@
         }
         
         .category-badge {
-            width: 240px;
-            height: 100px;
-            border-radius: 20px;
+            width: 280px !important;
+            height: 120px !important;
+            border-radius: 24px !important;
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
             position: relative;
             margin: 0 auto;
-            font-weight: 800;
-            font-size: 24px;
-            letter-spacing: -0.02em;
-            box-shadow: var(--premium-shadow);
-            border: 2px solid rgba(255,255,255,0.2);
-            backdrop-filter: blur(10px);
+            font-weight: 800 !important;
+            font-size: 28px !important;
+            letter-spacing: -0.02em !important;
+            box-shadow: 0px 20px 60px rgba(0,0,0,0.15) !important;
+            border: 2px solid rgba(255,255,255,0.3);
+            backdrop-filter: blur(20px);
             transition: all 400ms cubic-bezier(0.4, 0, 0.2, 1);
         }
         
         @media (max-width: 768px) {
             .category-badge {
-                width: 200px;
-                height: 80px;
-                font-size: 20px;
+                width: 220px !important;
+                height: 90px !important;
+                font-size: 22px !important;
             }
             
             .category-subtitle {
-                font-size: 10px;
+                font-size: 11px;
             }
         }
         
         @media (max-width: 480px) {
             .category-badge {
-                width: 180px;
-                height: 70px;
-                font-size: 18px;
+                width: 200px !important;
+                height: 80px !important;
+                font-size: 20px !important;
             }
         }
         
@@ -162,14 +191,14 @@
             box-shadow: 0px 24px 80px rgba(0,0,0,0.25);
         }
         
-        .category-badge.strong {
-            background: linear-gradient(135deg, #10B981 0%, #059669 50%, #047857 100%);
+        .category-strong {
+            background: linear-gradient(135deg, #10B981 0%, #059669 50%, #047857 100%) !important;
             color: white;
             text-shadow: 0px 2px 8px rgba(0,0,0,0.3);
         }
         
-        .category-badge.developing {
-            background: linear-gradient(135deg, #2E86AB 0%, #1e7fa3 50%, #1a73e8 100%);
+        .category-developing {
+            background: linear-gradient(135deg, #2E86AB 0%, #1e7fa3 50%, #1a73e8 100%) !important;
             color: white;
             text-shadow: 0px 2px 8px rgba(0,0,0,0.3);
         }
@@ -197,12 +226,12 @@
         
         .insight-card {
             background: rgba(255, 255, 255, 0.98);
-            border-radius: 24px;
-            box-shadow: var(--premium-shadow);
+            border-radius: 24px !important;
+            box-shadow: 0px 20px 60px rgba(0,0,0,0.08) !important;
             backdrop-filter: blur(20px);
-            border: 1px solid rgba(255,255,255,0.8);
-            transition: all 500ms cubic-bezier(0.4, 0, 0.2, 1);
-            padding: 32px;
+            border: 1px solid rgba(0,0,0,0.04);
+            transition: all 300ms cubic-bezier(0.4, 0, 0.2, 1);
+            padding: 32px !important;
             position: relative;
             overflow: hidden;
         }
@@ -214,18 +243,14 @@
             left: 0;
             right: 0;
             height: 4px;
-            background: linear-gradient(90deg, var(--signal-blue) 0%, var(--wellness-purple) 50%, var(--success-green) 100%);
-            opacity: 0;
-            transition: opacity 300ms ease;
+            background: linear-gradient(90deg, var(--signal-blue), var(--wellness-purple));
+            border-radius: 24px 24px 0 0;
         }
         
-        .insight-card:hover::before {
-            opacity: 0.6;
-        }
         
         .insight-card:hover {
-            transform: translateY(-8px);
-            box-shadow: 0px 32px 120px rgba(0,0,0,0.25);
+            transform: translateY(-4px);
+            box-shadow: 0px 30px 80px rgba(0,0,0,0.12) !important;
             border-color: rgba(139, 92, 246, 0.2);
         }
         
@@ -449,7 +474,7 @@
     </header>
 
     <!-- Results Hero -->
-    <section class="results-hero pt-20 pb-16 relative">
+    <section class="results-hero pt-20 pb-12 relative">
         <div class="max-w-4xl mx-auto px-6 text-center relative z-10">
             <div class="mb-8">
                 <div class="category-badge mb-8" id="category-badge">
@@ -459,11 +484,11 @@
                     </div>
                 </div>
                 
-                <h1 class="text-5xl md:text-6xl lg:text-7xl font-black mb-6 leading-tight" id="results-headline" style="letter-spacing: -0.03em; text-shadow: 0px 4px 16px rgba(0,0,0,0.1);">
-                    Your Financial Health Analysis
+                <h1 class="hero-headline mb-4" id="results-headline">
+                    Your Financial Assessment
                 </h1>
                 
-                <p class="text-xl md:text-2xl opacity-95 mb-8 max-w-3xl mx-auto leading-relaxed font-medium" id="results-subtitle" style="letter-spacing: -0.01em;">
+                <p class="body-large opacity-95 mb-6 max-w-3xl mx-auto leading-relaxed" id="results-subtitle">
                     Based on your responses, here's what we found...
                 </p>
                 
@@ -475,11 +500,11 @@
     </section>
 
     <!-- Main Results -->
-    <main class="py-16 -mt-8 relative z-10">
+    <main class="py-12 -mt-8 relative z-10">
         <div class="max-w-6xl mx-auto px-6">
             
             <!-- Key Insights Grid -->
-            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-10 mb-20">
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6 mb-16">
                 
                 <!-- Financial Health -->
                 <div class="insight-card">
@@ -490,7 +515,7 @@
                             </svg>
                         </div>
                         <div>
-                            <h3>Financial Health</h3>
+                            <h3 class="card-headline">Financial Health</h3>
                             <div class="category-text text-blue-600" id="financial-category">--</div>
                         </div>
                     </div>
@@ -511,7 +536,7 @@
                             </svg>
                         </div>
                         <div>
-                            <h3>Growth Potential</h3>
+                            <h3 class="card-headline">Growth Potential</h3>
                             <div class="category-text text-green-600" id="growth-category">--</div>
                         </div>
                     </div>
@@ -532,7 +557,7 @@
                             </svg>
                         </div>
                         <div>
-                            <h3>Efficiency</h3>
+                            <h3 class="card-headline">Efficiency</h3>
                             <div class="category-text text-purple-600" id="efficiency-category">--</div>
                         </div>
                     </div>
@@ -546,9 +571,9 @@
             </div>
 
             <!-- Key Recommendations -->
-            <div class="insight-card mb-20">
+            <div class="insight-card mb-16">
                 <div class="text-center mb-12">
-                    <h2 class="text-4xl font-black mb-4" style="letter-spacing: -0.02em;">Your Key Opportunities</h2>
+                    <h2 class="section-headline mb-4">Your Key Opportunities</h2>
                     <p class="text-lg text-gray-600 font-medium">Based on your diagnostic responses</p>
                 </div>
                 
@@ -574,9 +599,9 @@
             </div>
 
             <!-- Email Capture -->
-            <div class="email-capture-card mb-20">
+            <div class="email-capture-card mb-16">
                 <div class="max-w-lg mx-auto">
-                    <h2>Get Your Personalized Insights</h2>
+                    <h2 class="section-headline">Get Your Personalized Insights</h2>
                     <p>
                         Receive your complete analysis with specific, actionable recommendations 
                         tailored to your business category and growth stage.
@@ -653,35 +678,35 @@
                 </div>
             </div>
 
-            <!-- Social Proof -->
+            <!-- Assessment Features -->
             <div class="grid md:grid-cols-3 gap-6 mb-16">
                 <div class="social-proof-item">
                     <div class="w-10 h-10 bg-gradient-to-br from-emerald-400 to-teal-500 rounded-full flex items-center justify-center text-white font-bold text-sm">
-                        VG
+                        📊
                     </div>
                     <div>
-                        <div class="font-semibold text-sm">Vital Greens Co.</div>
-                        <div class="text-xs text-gray-500">Increased margins by 23%</div>
+                        <div class="font-semibold text-sm">Comprehensive Analysis</div>
+                        <div class="text-xs text-gray-500">10-question diagnostic framework</div>
                     </div>
                 </div>
                 
                 <div class="social-proof-item">
                     <div class="w-10 h-10 bg-gradient-to-br from-purple-400 to-pink-500 rounded-full flex items-center justify-center text-white font-bold text-sm">
-                        PW
+                        🎯
                     </div>
                     <div>
-                        <div class="font-semibold text-sm">Peak Wellness</div>
-                        <div class="text-xs text-gray-500">Reduced CAC by 31%</div>
+                        <div class="font-semibold text-sm">Targeted Insights</div>
+                        <div class="text-xs text-gray-500">Stage-specific recommendations</div>
                     </div>
                 </div>
                 
                 <div class="social-proof-item">
                     <div class="w-10 h-10 bg-gradient-to-br from-blue-400 to-indigo-500 rounded-full flex items-center justify-center text-white font-bold text-sm">
-                        NB
+                        🚀
                     </div>
                     <div>
-                        <div class="font-semibold text-sm">Nature's Blend</div>
-                        <div class="text-xs text-gray-500">2x revenue in 6 months</div>
+                        <div class="font-semibold text-sm">Actionable Steps</div>
+                        <div class="text-xs text-gray-500">Clear implementation guide</div>
                     </div>
                 </div>
             </div>
